@@ -10,6 +10,4 @@ public interface DistrictService {
     District saveDistrict(District district);
 
     List<District> findByName(String name);
-
-    District getDistrictByName(String username);
 }
