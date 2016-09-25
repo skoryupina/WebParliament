@@ -42,6 +42,10 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 		<dependency>
@@ -79,6 +83,12 @@
 	<build>
 		<plugins>
 			<plugin>
+				<!--It collects all the jars on the classpath and builds a single,
+                runnable "über-jar", which makes it more convenient to execute and
+                transport your service.
+                It searches for the public static void main() method to flag as a runnable class.
+                It provides a built-in dependency resolver that sets the version number to match
+                Spring Boot dependencies. -->
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
