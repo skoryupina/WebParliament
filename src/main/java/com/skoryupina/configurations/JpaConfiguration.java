@@ -11,12 +11,15 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
+@EnableTransactionManagement
 public class JpaConfiguration {
 
     @Value("${dataSource.driverClassName}")
@@ -68,6 +71,14 @@ public class JpaConfiguration {
         jpaProperties.put("eclipselink.weaving", "false");
         jpaProperties.put("eclipselink.logging.parameters", "true");
         return jpaProperties;
+    }
+
+    @Bean(name="transactionManager")
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory){
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setDataSource(configureDataSource());
+        transactionManager.setEntityManagerFactory(entityManagerFactory);
+        return transactionManager;
     }
 
     @Bean
