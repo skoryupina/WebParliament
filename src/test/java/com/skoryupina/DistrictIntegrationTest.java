@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class DistrictIntegrationTest {
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("JpaPersistenceUnit");
+    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestJpaPersistenceUnit");
     private EntityManager em;
     private EntityTransaction tx;
 
@@ -33,13 +33,13 @@ public class DistrictIntegrationTest {
 
     @Test
     public void shouldFindMultiMemberConstituencies() throws Exception {
-        District district = em.find(District.class, 2);
-        assertEquals("Multi-member constituencies", district.getName());
+        District district = em.find(District.class, 3);
+        assertEquals("Single-member constituency", district.getName());
     }
 
     @Test
     public void shouldCreateMultiMemberConstituencies() throws Exception {
-        District district = new District("");
+        District district = new District("Multi-member constituencies");
         tx.begin();
         em.persist(district);
         tx.commit();

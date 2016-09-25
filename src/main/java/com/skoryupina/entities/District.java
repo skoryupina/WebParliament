@@ -3,6 +3,7 @@ package com.skoryupina.entities;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import java.io.Serializable;
@@ -20,6 +21,7 @@ public class District implements Serializable {
     private Integer id;
 
     @Size(min=3, max=40)
+    @NotNull
     private String name;
 
     public District(){}
