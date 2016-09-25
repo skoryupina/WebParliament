@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <title>Districts</title>
+</head>
+<body>
+<div class="container">
+    <div th:if="${not #lists.isEmpty(districts)}">
+        <h2 align="center">District List</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>District name</th>
+            </tr>
+            <tr th:each="district : ${districts}">
+                <td th:text="${district.name}"><a th:href="@{/districts/${district.name}}">Name</a></td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>
