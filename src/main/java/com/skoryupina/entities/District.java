@@ -1,28 +1,27 @@
 package com.skoryupina.entities;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import java.io.Serializable;
-import java.util.UUID;
+import java.util.Set;
 
 @Entity
 @NamedQueries({
         @NamedQuery(name = "findAllOkrugs", query = "SELECT d FROM District d"),
         @NamedQuery(name = "findMultiMemberConstituency", query = "SELECT d FROM District d WHERE d.name='Multi-member constituencies'")
 })
+@Table(name = "district")
+@Access(AccessType.FIELD)
 public class District implements Serializable {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue (strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Size(min=3, max=40)
-    @NotNull
+    @Column (name ="name", unique = true, nullable = false, length = 20)
     private String name;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_district", nullable = false)
+    private Set<Deputy> deputies;
 
     public District(){}
 
@@ -35,11 +34,12 @@ public class District implements Serializable {
         this.name = name;
     }
 
+    //region getters_and_setters
     public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    protected void setId(int id) {
         this.id = id;
     }
 
@@ -50,6 +50,7 @@ public class District implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+    //endregion
 
     @Override
     public String toString() {
