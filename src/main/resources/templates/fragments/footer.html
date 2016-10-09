@@ -5,8 +5,14 @@
 </head>
 <body>
 <div th:fragment="footer">
-    &copy; Ekaterina Skoryupina 2016
+    <footer>
+        <ul>
+            <li><a th:href="@{/about}">About</a></li>
+            <li><a th:href="@{/contact_us}">Contact us</a></li>
+            <li><a th:href="@{/follow_on_twitter}">Follow us on Twitter</a></li>
+            <li><a th:href="@{/rss}">RSS</a></li>
+        </ul>
+    </footer>
 </div>
-<a th:href="@{/about}">About</a>
 </body>
 </html>

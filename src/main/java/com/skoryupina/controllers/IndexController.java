@@ -9,14 +9,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Controller
-@RequestMapping("/")
 public class IndexController {
-    private static final String template = "Hello, %s!";
 
-    @RequestMapping(method= RequestMethod.GET)
-    public @ResponseBody
-    String sayHello(@RequestParam(value="name", required=false, defaultValue="world") String name) {
-        return (String.format(template, name));
+    @RequestMapping(value = "/", method=RequestMethod.GET)
+    public String getIndex() {
+        return "index";
     }
 
 }

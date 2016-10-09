@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
     <title>Districts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link th:href="@{css/main.css}" rel="stylesheet" media="screen"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<div th:replace="fragments/header :: header"></div>
 <div class="container">
     <div th:if="${not #lists.isEmpty(districts)}">
         <h2 align="center">District List</h2>
@@ -15,9 +19,8 @@
                 <td th:text="${district.name}"><a th:href="@{/districts/${district.name}}">Name</a></td>
             </tr>
         </table>
-
     </div>
 </div>
-
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
