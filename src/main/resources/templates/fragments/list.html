@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="list">
+    <table>
+        <thead>
+            <tr th:each="title : ${titles}">
+                <td th:text="${title}"></td>
+                <td colspan="2">
+                    <a href="#myPopup" data-rel="popup">
+                        <i class="material-icons">add_circle</i>
+                    </a>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+
+            <td th:each="title:${titles}" th:text="${item["${title}"]}"></td>
+            <td><i class="material-icons">edit</i></td>
+            <td><i class="material-icons">delete</i></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

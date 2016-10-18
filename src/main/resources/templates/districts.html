@@ -3,23 +3,44 @@
 <head lang="en">
     <title>Districts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link th:href="@{css/list.css}" rel="stylesheet" media="screen"/>
     <link th:href="@{css/main.css}" rel="stylesheet" media="screen"/>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<div class="container">
-    <div th:if="${not #lists.isEmpty(districts)}">
-        <h2 align="center">District List</h2>
-        <table class="table table-striped">
-            <tr>
-                <th>District name</th>
-            </tr>
-            <tr th:each="district : ${districts}">
-                <td th:text="${district.name}"><a th:href="@{/districts/${district.name}}">Name</a></td>
-            </tr>
-        </table>
-    </div>
+<table>
+    <thead>
+    <tr>
+        <td>Наименование</td>
+        <td>
+            <a href="#myPopup" data-rel="popup">
+                <i class="material-icons">add_circle</i>
+            </a>
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="district : ${districts}">
+        <td th:text="${district.name}"></td>
+        <td class="narrow"><i class="material-icons">edit</i><i class="material-icons">delete</i></td>
+    </tr>
+    </tbody>
+</table>
+<div data-role="popup" id="myPopup" class="ui-content" style="min-width:250px;">
+    <form action="#" th:action="@{/district}" th:object="${district}" method="post" >
+        <div>
+            <h3>Новый округ</h3>
+            <input type="text" name="name" id="name" th:field="*{name}" placeholder="Название округа"></input>
+            <input type="submit" data-inline="true" value="Сохранить"></input>
+        </div>
+    </form>
 </div>
 <div th:replace="fragments/footer :: footer"></div>
 </body>
