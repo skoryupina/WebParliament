@@ -2,7 +2,6 @@ package com.skoryupina.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 @Entity
 @NamedQueries({
@@ -18,10 +17,6 @@ public class District implements Serializable {
 
     @Column (name ="name", unique = true, nullable = false, length = 20)
     private String name;
-
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_district", nullable = false)
-    private Set<Deputy> deputies;
 
     public District(){}
 

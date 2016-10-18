@@ -26,6 +26,10 @@ public class Deputy implements Serializable {
     @OrderBy("date DESC")
     private Set<Meeting> meetings;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_district", nullable = false)
+    private District district;
+
     public Deputy() {
     }
 
@@ -66,6 +70,22 @@ public class Deputy implements Serializable {
 
     public void setJob(JobType job) {
         this.job = job;
+    }
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
+    }
+
+    public Set<Meeting> getMeetings() {
+        return meetings;
+    }
+
+    public void setMeetings(Set<Meeting> meetings) {
+        this.meetings = meetings;
     }
     //endregion
 }

@@ -23,7 +23,7 @@ public class Party implements Serializable {
     private Deputy leader;
 
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_party", nullable = false)
+    @JoinColumn(name = "id_party", nullable = true)
     private Set<Deputy> deputies;
 
     @Embedded
@@ -78,6 +78,14 @@ public class Party implements Serializable {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public Set<Deputy> getDeputies() {
+        return deputies;
+    }
+
+    public void setDeputies(Set<Deputy> deputies) {
+        this.deputies = deputies;
     }
 
     //endregion
