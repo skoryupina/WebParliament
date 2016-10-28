@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head lang="en">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" type="text/css"/>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8;"/>
 </head>
 <body>
 <div th:fragment="header">
+
     <header class="header">
-        <div class="container">
+        <div class="w3-container">
             <div class="header__inner">
                 <img class="header__logo" src="images/logo.jpg" alt="iconic view of a parliament"/>
                 <h1 class="header__title">
@@ -16,14 +16,17 @@
             </div>
         </div>
     </header>
-    <nav id="drawer" class="nav">
-        <ul class="nav__list">
-            <li class="nav__item"><a href="#" th:href="@{/fractions}">Фракции</a></li>
-            <li class="nav__item"><a href="#" th:href="@{/parties}">Партии</a></li>
-            <li class="nav__item"><a href="#" th:href="@{/deputies}">Депутаты</a></li>
-            <li class="nav__item"><a href="#" th:href="@{/districts}">Округи</a></li>
+    <div class="w3-container">
+        <ul class="w3-navbar w3-light-grey w3-border">
+            <li class="w3-padding-16"><a href="#" th:href="@{/fractions}">Фракции</a></li>
+            <li class="w3-padding-16"><a href="#" th:href="@{/parties}">Партии</a></li>
+            <li class="w3-padding-16"><a href="#" th:href="@{/deputies}">Депутаты</a></li>
+            <li class="w3-padding-16"><a href="#" th:href="@{/districts}">Округи</a></li>
+            <li class="w3-padding-16">
+                <input type="text" class="w3-input w3-border-0" placeholder="Поиск.."/>
+            </li>
         </ul>
-    </nav>
+    </div>
 </div>
 </body>
 </html>

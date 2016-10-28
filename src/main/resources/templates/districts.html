@@ -2,20 +2,41 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
     <title>Districts</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8;"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link th:href="@{css/list.css}" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css"/>
+    <!--<link th:href="@{css/list.css}" rel="stylesheet" media="screen"/>-->
     <link th:href="@{css/main.css}" rel="stylesheet" media="screen"/>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" type="text/css"/>
 
-    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
+<!--    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>-->
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<table>
+
+<h2>Список округов</h2>
+<ul class="breadcrumb">
+    <li><a href="#" th:href="@{/index}">Главная</a></li>
+    <li><a href="#" th:href="@{/districts}">Округи</a></li>
+</ul>
+
+
+<div class="w3-container">
+    <ul class="w3-ul w3-card-4 w3-hoverable" >
+        <li class="w3-padding-16 list-item" th:each="district : ${districts}">
+            <span class="w3-xlarge" th:text="${district.name}"></span>
+            <button class="w3-btn w3-padding w3-green control">Редактировать</button>
+            <button class="w3-btn w3-padding w3-light-grey control">Удалить</button>
+        </li>
+    </ul>
+</div>
+
+<button class="w3-btn-floating-large w3-ripple w3-teal add">+</button>
+<!--<table>
     <thead>
     <tr>
         <td>Наименование</td>
@@ -32,9 +53,9 @@
         <td class="narrow"><i class="material-icons">edit</i><i class="material-icons">delete</i></td>
     </tr>
     </tbody>
-</table>
-<div data-role="popup" id="myPopup" class="ui-content" style="min-width:250px;">
-    <form action="#" th:action="@{/district}" th:object="${district}" method="post" >
+</table>-->
+<!--<div data-role="popup" id="myPopup" class="ui-content" style="min-width:250px;">
+    <form action="#" th:action="@{/district}" th:object="${district}" method="post">
         <div>
             <h3>Новый округ</h3>
             <input type="text" name="name" id="name" th:field="*{name}" placeholder="Название округа"></input>
@@ -42,6 +63,6 @@
         </div>
     </form>
 </div>
-<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="fragments/footer :: footer"></div>-->
 </body>
 </html>
