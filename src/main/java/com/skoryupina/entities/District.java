@@ -4,15 +4,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@NamedQueries({
-        @NamedQuery(name = "findAllOkrugs", query = "SELECT d FROM District d"),
-        @NamedQuery(name = "findMultiMemberConstituency", query = "SELECT d FROM District d WHERE d.name='Multi-member constituencies'")
-})
 @Table(name = "district")
-@Access(AccessType.FIELD)
 public class District implements Serializable {
 
     @Id @GeneratedValue (strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
     @Column (name ="name", unique = true, nullable = false, length = 20)
@@ -34,7 +30,7 @@ public class District implements Serializable {
         return id;
     }
 
-    protected void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
