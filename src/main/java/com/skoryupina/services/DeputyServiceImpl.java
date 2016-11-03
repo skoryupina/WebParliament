@@ -3,9 +3,11 @@ package com.skoryupina.services;
 import com.skoryupina.entities.Deputy;
 import com.skoryupina.repositories.DeputyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class DeputyServiceImpl implements DeputyService{
     private DeputyRepository deputyRepository;
 
@@ -28,5 +30,10 @@ public class DeputyServiceImpl implements DeputyService{
     @Override
     public List<Deputy> findBySurname(String surname) {
         return deputyRepository.findBySurname(surname);
+    }
+
+    @Override
+    public Deputy findById(Integer id) {
+        return deputyRepository.findOne(id);
     }
 }

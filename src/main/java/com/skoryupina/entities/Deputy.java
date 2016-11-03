@@ -10,6 +10,7 @@ import java.util.Set;
 public class Deputy implements Serializable {
 
     @Id @GeneratedValue (strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
     @Column(name ="surname", nullable = false, length = 20)

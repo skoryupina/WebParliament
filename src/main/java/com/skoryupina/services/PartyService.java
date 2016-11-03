@@ -10,4 +10,6 @@ public interface PartyService {
     Party saveParty(Party party);
 
     List<Party> findByName(String name);
+
+    Party findById(Integer id);
 }

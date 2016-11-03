@@ -11,6 +11,7 @@ import java.util.Set;
 public class Meeting implements Serializable {
 
     @Id @GeneratedValue (strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
     @Temporal(TemporalType.DATE)

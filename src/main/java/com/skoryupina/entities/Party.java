@@ -10,6 +10,7 @@ import java.util.Set;
 public class Party implements Serializable {
 
     @Id @GeneratedValue (strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "name", nullable = false, unique = true)

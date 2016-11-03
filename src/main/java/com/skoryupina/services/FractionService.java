@@ -10,4 +10,6 @@ public interface FractionService {
     Fraction saveFraction(Fraction fraction);
 
     List<Fraction> findByName(String name);
+
+    Fraction findById(Integer id);
 }

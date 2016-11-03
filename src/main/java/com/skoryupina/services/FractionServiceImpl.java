@@ -3,9 +3,11 @@ package com.skoryupina.services;
 import com.skoryupina.entities.Fraction;
 import com.skoryupina.repositories.FractionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class FractionServiceImpl implements FractionService {
 
     private FractionRepository fractionRepository;
@@ -28,5 +30,10 @@ public class FractionServiceImpl implements FractionService {
     @Override
     public List<Fraction> findByName(String name) {
         return fractionRepository.findByName(name);
+    }
+
+    @Override
+    public Fraction findById(Integer id) {
+        return fractionRepository.findOne(id);
     }
 }

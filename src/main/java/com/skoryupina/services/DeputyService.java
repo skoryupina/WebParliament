@@ -10,4 +10,6 @@ public interface DeputyService {
     Deputy saveDeputy(Deputy district);
 
     List<Deputy> findBySurname(String surname);
+
+    Deputy findById(Integer id);
 }

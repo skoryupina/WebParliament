@@ -32,7 +32,7 @@ public class DistrictController {
         System.out.println("edit");
         System.out.println(districtService.findById(id));
         model.addAttribute("district", districtService.findById(id));
-        return "districtform";
+        return "forms/districtform";
     }
 
     @RequestMapping(value = "/district", method = RequestMethod.POST)

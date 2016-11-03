@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
-    <title>Округи</title>
+    <title>Партии</title>
     <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
 
-<h2>Список округов</h2>
+<h2>Список партий</h2>
 <ul class="breadcrumb">
     <li><a href="#" th:href="@{/index}">Главная</a></li>
-    <li><a href="#" th:href="@{/districts}">Округи</a></li>
+    <li><a href="#" th:href="@{/parties}">Партии</a></li>
 </ul>
 
 
 <div class="w3-container">
     <ul class="w3-ul w3-card-4 w3-hoverable">
-        <li class="w3-padding-16 list-item" th:each="district : ${districts}">
-            <span class="w3-xlarge" th:text="${district.name}"></span>
-            <form action="#" th:action="@{/districts/edit}" method="post">
-                <input type="hidden" name="id" th:value="${district.id}" />
+        <li class="w3-padding-16 list-item" th:each="party : ${parties}">
+            <span class="w3-xlarge" th:text="${party.name}"></span>
+            <form action="#" th:action="@{/parties/edit}" method="post">
+                <input type="hidden" name="id" th:value="${party.id}" />
                 <input class="w3-btn w3-padding w3-green control" type="submit" value="Редактировать" />
             </form>
-            <form action="#" th:action="@{/districts/delete}" method="post">
-                <input type="hidden" name="id" th:value="${district.id}" />
+            <form action="#" th:action="@{/parties/delete}" method="post">
+                <input type="hidden" name="id" th:value="${party.id}" />
                 <input class="w3-btn w3-padding w3-light-grey control" type="submit" value="Удалить" />
             </form>
         </li>
@@ -35,9 +35,9 @@
 <div id="modalForm" class="modal">
     <div class="modal-content">
         <span class="close">×</span>
-        <form th:action="@{/districts/district}" action="#" th:object="${district}"  method="post">
-            <p>Новый округ</p>
-            <input type="text" pattern="^[А-Яа-яЁё\s]{3,}" th:field="*{name}" th:required="required" placeholder="Наименование округа"/>
+        <form th:action="@{/parties/party}" action="#" th:object="${party}"  method="post">
+            <p>Новый депутат</p>
+            <input type="text" pattern="^[А-Яа-яЁё\s]{3,}" th:field="*{name}" th:required="required" placeholder="Наименование"/>
             <br/><br/>
             <input type="submit" class="btn btn-default" value="Сохранить"/>
         </form>
