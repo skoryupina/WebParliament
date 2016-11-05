@@ -5,8 +5,6 @@ import com.skoryupina.repositories.DistrictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class DistrictServiceImpl implements DistrictService {
 
@@ -28,7 +26,7 @@ public class DistrictServiceImpl implements DistrictService {
     }
 
     @Override
-    public List<District> findByName(String name) {
+    public District findByName(String name) {
         return districtRepository.findByName(name);
     }
 

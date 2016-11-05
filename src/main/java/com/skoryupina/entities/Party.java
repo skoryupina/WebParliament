@@ -1,5 +1,7 @@
 package com.skoryupina.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -19,11 +21,11 @@ public class Party implements Serializable {
     @Column(name = "phoneNumber", nullable = false, unique = true)
     private Integer phoneNumber;
 
-    @OneToOne (fetch = FetchType.EAGER)
+    @OneToOne (fetch = FetchType.LAZY)
     @JoinColumn(name="leader_id", nullable = false)
     private Deputy leader;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "party", fetch = FetchType.LAZY)
     @JoinColumn(name = "id_party", nullable = true)
     private Set<Deputy> deputies;
 
@@ -41,6 +43,7 @@ public class Party implements Serializable {
     }
 
     //region getters_and_setters
+    @JsonIgnore
     public Integer getId() {
         return id;
     }
@@ -57,6 +60,7 @@ public class Party implements Serializable {
         this.name = name;
     }
 
+    @JsonIgnore
     public Integer getPhoneNumber() {
         return phoneNumber;
     }
@@ -65,6 +69,7 @@ public class Party implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    @JsonIgnore
     public Deputy getLeader() {
         return leader;
     }
@@ -73,6 +78,7 @@ public class Party implements Serializable {
         this.leader = leader;
     }
 
+    @JsonIgnore
     public Address getAddress() {
         return address;
     }
@@ -81,6 +87,7 @@ public class Party implements Serializable {
         this.address = address;
     }
 
+    @JsonIgnore
     public Set<Deputy> getDeputies() {
         return deputies;
     }

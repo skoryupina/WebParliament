@@ -84,10 +84,10 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     private ArrayList<Deputy> createDeputies( ArrayList<District> districts) {
         String[] names = new String[]{
-                "Иван", "Петр", "Алексей", "Семен", "Георгий", "Денис", "Степан", "Тимофей", "Леонтий", "Роман"
+                "Иван", "Петр", "Алексей", "Семен", "Георгий", "Денис", "Степан", "Тимофей", "Леонтий", "Роман", "Дмитрий", "Павел"
         };
         String[] surnames = new String[]{
-                "Иванов", "Петров", "Алексеев", "Семенов", "Георгиев", "Денисов", "Степанов", "Тимофеев", "Леонтьев", "Романов"
+                "Иванов", "Петров", "Алексеев", "Семенов", "Георгиев", "Денисов", "Степанов", "Тимофеев", "Леонтьев", "Романов", "Дмитриев", "Павлов"
         };
         ArrayList<Deputy> deputies = new ArrayList<>();
 
@@ -121,16 +121,19 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
         ArrayList<Address> addresses = createAddresses();
         ArrayList<Party> parties = new ArrayList<>();
-        for (int i = 0; i < names.length; i++) {
+        for (int partyIndex = 0, deputyIndex = 0; partyIndex < names.length; partyIndex++, deputyIndex = deputyIndex+3) {
             Party party = new Party();
-            party.setName(names[i]);
-            party.setAddress(addresses.get(i));
-            deputies.get(i).setJob(JobType.LEADER);
-            party.setLeader(deputies.get(i));
-            party.setPhoneNumber(phoneNumbers[i]);
+            party.setName(names[partyIndex]);
+            party.setAddress(addresses.get(partyIndex));
+            deputies.get(deputyIndex).setJob(JobType.LEADER);
+            party.setLeader(deputies.get(deputyIndex));
+            deputies.get(deputyIndex).setParty(party);
+            party.setPhoneNumber(phoneNumbers[partyIndex]);
             Set<Deputy> partyDeputies = new HashSet<>();
-            partyDeputies.add(deputies.get(i + 1));
-            partyDeputies.add(deputies.get(i + 2));
+            deputies.get(deputyIndex + 1).setParty(party);
+            partyDeputies.add(deputies.get(deputyIndex + 1));
+            deputies.get(deputyIndex + 2).setParty(party);
+            partyDeputies.add(deputies.get(deputyIndex + 2));
             party.setDeputies(partyDeputies);
             parties.add(party);
         }

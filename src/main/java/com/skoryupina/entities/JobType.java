@@ -12,4 +12,12 @@ public enum JobType {
             default: return "Не определено";
         }
     }
+
+    public static JobType getCorrespondingJobType(String jobType){
+        switch (jobType){
+            case "Руководитель": return LEADER;
+            case "Депутат": return  ORDINARY;
+            default: throw  new RuntimeException("Unreachable statement");
+        }
+    }
 }

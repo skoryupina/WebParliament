@@ -1,5 +1,7 @@
 package com.skoryupina.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -26,6 +28,7 @@ public class District implements Serializable {
     }
 
     //region getters_and_setters
+    @JsonIgnore
     public Integer getId() {
         return id;
     }
@@ -46,8 +49,7 @@ public class District implements Serializable {
     @Override
     public String toString() {
         return "District{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                " name='" + name + '\'' +
                 '}';
     }
 }

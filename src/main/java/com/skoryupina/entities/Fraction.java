@@ -23,7 +23,7 @@ public class Fraction implements Serializable {
     @Embedded
     private Address address;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "fraction_id", nullable = true)
     private Set<Party> parties;
 

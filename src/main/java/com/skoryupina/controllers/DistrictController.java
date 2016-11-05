@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/districts")
@@ -41,5 +42,10 @@ public class DistrictController {
         System.out.println(district.toString());
         districtService.saveDistrict(district);
         return "redirect:/districts";
+    }
+
+    @RequestMapping("/districtsNames")
+    public @ResponseBody Iterable<District> districtJson() {
+        return districtService.listAllDistricts();
     }
 }

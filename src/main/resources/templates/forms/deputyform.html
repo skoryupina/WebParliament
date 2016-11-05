@@ -9,20 +9,77 @@
 <body>
 <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 <div class="container">
-    <form class="form-horizontal" th:object="${deputy}"  action="#" th:action="@{/deputies/deputy}" method="post">
-        <h2>Редактирование депутата</h2>
-        <input type="hidden" th:field="*{id}" />
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Имя:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{name}"/>
-                </div>
+    <form class="form-horizontal" th:object="${deputyForm}" action="#" th:action="@{/deputies/deputy}" method="post">
+        <!--Подзаголовок страницы-->
+        <div class="form-group" th:if="${edit}">
+            <h2><i>Редактирование информации о депутате</i></h2>
+            <input type="hidden" th:field="*{id}"/>
+        </div>
+        <div class="form-group" th:unless="${edit}">
+            <h2><i>Создание депутата</i></h2>
+            <input type="hidden" th:field="*{id}"/>
+        </div>
+
+        <!--Личные данные-->
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="surname">Фамилия:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="surname" pattern="^[А-Яа-яЁё\s]{3,}" th:field="*{surname}" th:required="required"
+                       placeholder="Введите фамилию депутата"/>
             </div>
-            <div class="row">
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="name">Имя:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="name" pattern="^[А-Яа-яЁё\s]{3,}" th:field="*{name}" th:required="required"
+                       placeholder="Введите имя депутата"/>
+            </div>
+        </div>
+
+        <!--Партия-->
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="party">Партия:</label>
+            <div class="col-sm-10">
+                <select id="party_template"></select>
+            </div>
+            <script>
+                $.getJSON("/parties/partiesNames", function(result) {
+                    var optionsValues = '<select class="form-control" id="party" >';
+                    $.each(result, function( key,val ) {
+                        optionsValues += '<option>' + val.name  + '</option>';
+                    });
+                    optionsValues += '</select>';
+                    var options = $('#party_template');
+                    options.replaceWith(optionsValues);
+                });
+            </script>
+        </div>
+
+        <!--Округ-->
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="district">Округ:</label>
+            <div class="col-sm-10">
+                <select id="districts_template"></select>
+            </div>
+            <script>
+                $.getJSON("/districts/districtsNames", function(result) {
+                    var optionsValues = '<select class="form-control" id="district" >';
+                    $.each(result, function( key,val ) {
+                        optionsValues += '<option>' + val.name  + '</option>';
+                    });
+                    optionsValues += '</select>';
+                    var options = $('#districts_template');
+                    options.replaceWith(optionsValues);
+                });
+            </script>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-default">Сохранить</button>
             </div>
-        </form>
+        </div>
+    </form>
 </div>
-
 </body>
 </html>

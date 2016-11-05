@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/parties")
@@ -40,5 +41,10 @@ public class PartyController {
         System.out.println(party.toString());
         partyService.saveParty(party);
         return "redirect:/parties";
+    }
+
+    @RequestMapping("/partiesNames")
+    public @ResponseBody Iterable<Party> partiesJson() {
+        return partyService.listAllParties();
     }
 }
