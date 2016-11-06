@@ -60,12 +60,19 @@ public class DeputyController {
 
     @RequestMapping(value = "/deputy", method = RequestMethod.POST)
     public String saveDeputy(DeputyForm deputyForm){
-        System.out.println("save");
-        Deputy deputy = new Deputy();
+        Deputy deputy;
+        if (deputyForm.getId()!=null){
+            //редактирование
+            System.out.println("save edit");
+            deputy = deputyService.findById(deputyForm.getId());
+        }else{
+            System.out.println("save new");
+            deputy = new Deputy();
+        }
         deputy.setName(deputyForm.getName());
         deputy.setSurname(deputyForm.getSurname());
-        deputy.setJob(JobType.getCorrespondingJobType(deputyForm.getJob()));
         deputy.setDistrict(districtService.findByName(deputyForm.getDistrict()));
+        deputy.setParty(partyService.findByName(deputyForm.getParty()));
 
         System.out.println(deputy.toString());
         deputyService.saveDeputy(deputy);
