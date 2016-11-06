@@ -40,17 +40,18 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="party">Партия:</label>
             <div class="col-sm-10">
-                <select id="party_template"></select>
+                <select class="form-control" id="party" name="party" th:field="*{party}" th:value="*{party}"></select>
             </div>
             <script>
-                $.getJSON("/parties/partiesNames", function(result) {
-                    var optionsValues = '<select class="form-control" id="party" >';
-                    $.each(result, function( key,val ) {
-                        optionsValues += '<option>' + val.name  + '</option>';
-                    });
-                    optionsValues += '</select>';
-                    var options = $('#party_template');
-                    options.replaceWith(optionsValues);
+                $.getJSON("/parties/partiesNames", function (result) {
+                    var partySelect = $('#party');
+                    var currentValue = partySelect.attr( 'value' );
+                    $.each(result, function (key, val) {
+                        partySelect.append(
+                                $('<option></option>').val(val.name).html(val.name)
+                        );
+                    })
+                    partySelect.val(currentValue);
                 });
             </script>
         </div>

@@ -66,7 +66,7 @@ public class DeputyForm {
         setSurname(deputy.getSurname());
         setName(deputy.getName());
         setJob(deputy.getJob().toString());
-        setDistrict(deputy.getDistrict().toString());
-        setParty(deputy.getParty().toString());
+        setDistrict(deputy.getDistrict().getName());
+        setParty(deputy.getParty().getName());
     }
 }
