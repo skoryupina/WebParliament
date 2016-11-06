@@ -2,26 +2,82 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="ru">
 
-    <title>Редактирование партии</title>
+    <title>Партия</title>
 
     <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
 <body>
 <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 <div class="container">
-    <form class="form-horizontal" th:object="${party}"  action="#" th:action="@{/parties/party}" method="post">
-        <h2>Редактирование партии</h2>
-        <input type="hidden" th:field="*{id}" />
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Наименование:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{name}"/>
-                </div>
+    <form class="form-horizontal" th:object="${partyForm}" action="#" th:action="@{/parties/party}" method="post">
+        <!--Подзаголовок страницы-->
+        <div class="form-group" th:if="${edit}">
+            <h2><i>Редактирование информации о партии</i></h2>
+            <input type="hidden" th:field="*{id}"/>
+        </div>
+        <div class="form-group" th:unless="${edit}">
+            <h2><i>Создание партии</i></h2>
+            <input type="hidden" th:field="*{id}"/>
+        </div>
+
+        <!--Данные партии-->
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="name">Наименование:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="name" pattern="^[А-Яа-яЁё\s]{3,}" th:field="*{name}"
+                       th:required="required"
+                       placeholder="Введите наименование партии"/>
             </div>
-            <div class="row">
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="phoneNumber">Телефон:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="phoneNumber" pattern="[0-9]{5,10}" th:field="*{phoneNumber}"
+                       placeholder="Введите номер телефона"/>
+            </div>
+        </div>
+
+        <!--Адрес-->
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="city">Город:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="city" pattern="^[А-Яа-яЁё\s]{3,}" th:field="*{city}"
+                       th:required="required"
+                       placeholder="Введите город"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="district">Район:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="district" pattern="^[А-Яа-яЁё\s]{3,}" th:field="*{district}"
+                       th:required="required"
+                       placeholder="Введите район"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="street">Улица:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="street" pattern="^[А-Яа-яЁё\s]{3,}" th:field="*{street}"
+                       th:required="required"
+                       placeholder="Введите улицу"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="house">Дом:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="house" pattern="[0-9]{1,3}" th:field="*{house}"
+                       th:required="required"
+                       placeholder="Введите номер дома"/>
+            </div>
+        </div>
+
+        <!--Сохранить-->
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-default">Сохранить</button>
             </div>
-        </form>
+        </div>
+    </form>
 </div>
 
 </body>

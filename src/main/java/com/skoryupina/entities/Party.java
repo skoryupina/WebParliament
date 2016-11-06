@@ -22,7 +22,7 @@ public class Party implements Serializable {
     private Integer phoneNumber;
 
     @OneToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name="leader_id", nullable = false)
+    @JoinColumn(name="leader_id", nullable = true)
     private Deputy leader;
 
     @OneToMany(mappedBy = "party", fetch = FetchType.LAZY)

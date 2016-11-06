@@ -16,7 +16,7 @@ body {
 }
 
 h1, h2, h3, h4, h5 {
-    margin-left: 20px;
+    margin-left: 20%;
 }
 
 
@@ -72,6 +72,8 @@ ul {
 
 .control{
     float: right;
+    position: relative;
+    top: -40px;
 }
 
 li> form>.control{
@@ -122,13 +124,23 @@ ul.breadcrumb li a {color: green;}
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
+/*List of entities*/
+.list {
+    width:60%;
+    margin: auto;
+}
+
 /* Modal Content */
 .modal-content {
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 40%;
+    width: 30%;
+}
+
+.modal-content > input{
+    width: 80%;
 }
 
 /* The Close Button */

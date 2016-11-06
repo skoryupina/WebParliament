@@ -43,7 +43,6 @@ public class DeputyController {
     @RequestMapping("")
     public String index(Model model) {
         model.addAttribute("deputies", deputyService.listAllDeputies());
-        model.addAttribute("deputy", new Deputy());
         return "deputies";
     }
 

@@ -15,7 +15,7 @@
 
 
 <div class="w3-container">
-    <ul class="w3-ul w3-card-4 w3-hoverable">
+    <ul class="w3-ul w3-card-4 w3-hoverable list" th:if="${not #lists.isEmpty(deputies)}">
         <li class="w3-padding-16 list-item" th:each="deputy : ${deputies}">
             <span class="w3-xlarge" th:text="${deputy.name}"></span>
             <form action="#" th:action="@{/deputies/edit}" method="post">

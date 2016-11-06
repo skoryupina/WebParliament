@@ -3,11 +3,14 @@ package com.skoryupina.controllers;
 import com.skoryupina.entities.Fraction;
 import com.skoryupina.services.FractionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+@Controller
+@RequestMapping("/fractions")
 public class FractionController {
     private FractionService fractionService;
 
@@ -19,7 +22,6 @@ public class FractionController {
     @RequestMapping("")
     public String index(Model model) {
         model.addAttribute("fractions", fractionService.listAllFractions());
-        model.addAttribute("fraction", new Fraction());
         return "fractions";
     }
 

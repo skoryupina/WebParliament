@@ -15,6 +15,7 @@ public class DeputyForm {
         this.job = JobType.ORDINARY.toString();
     }
 
+    //region getters_and_setters
     public Integer getId() {
         return id;
     }
@@ -62,6 +63,8 @@ public class DeputyForm {
     public void setParty(String party) {
         this.party = party;
     }
+
+    //endregion
 
     public void feed(Deputy deputy){
         setId(deputy.getId());
