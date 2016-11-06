@@ -99,15 +99,15 @@ public class Party implements Serializable {
     //endregion
 
 
-    @Override
-    public String toString() {
-        return "Party{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", phoneNumber=" + phoneNumber +
-                ", leader=" + leader +
-                ", deputies=" + deputies +
-                ", address=" + address +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Party{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", phoneNumber=" + phoneNumber +
+//                ", leader=" + leader +
+//                ", deputies=" + deputies +
+//                ", address=" + address +
+//                '}';
+//    }
 }

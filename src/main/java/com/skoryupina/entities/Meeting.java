@@ -42,12 +42,12 @@ public class Meeting implements Serializable {
     //endregion
 
 
-    @Override
-    public String toString() {
-        return "Meeting{" +
-                "id=" + id +
-                ", date=" + date +
-                ", deputies=" + deputies +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Meeting{" +
+//                "id=" + id +
+//                ", date=" + date +
+//                ", deputies=" + deputies +
+//                '}';
+//    }
 }

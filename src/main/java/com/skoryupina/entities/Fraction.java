@@ -73,14 +73,14 @@ public class Fraction implements Serializable {
     //endregion
 
 
-    @Override
-    public String toString() {
-        return "Fraction{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", phoneNumber=" + phoneNumber +
-                ", address=" + address +
-                ", parties=" + parties +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Fraction{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", phoneNumber=" + phoneNumber +
+//                ", address=" + address +
+//                ", parties=" + parties +
+//                '}';
+//    }
 }

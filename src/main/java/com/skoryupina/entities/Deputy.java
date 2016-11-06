@@ -101,16 +101,16 @@ public class Deputy implements Serializable {
     //endregion
 
 
-    @Override
-    public String toString() {
-        return "Deputy{" +
-                "id=" + id +
-                ", surname='" + surname + '\'' +
-                ", name='" + name + '\'' +
-                ", job=" + job +
-                ", meetings=" + meetings +
-                ", district=" + district +
-                ", party=" + party +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Deputy{" +
+//                "id=" + id +
+//                ", surname='" + surname + '\'' +
+//                ", name='" + name + '\'' +
+//                ", job=" + job +
+//                ", meetings=" + meetings +
+//                ", district=" + district +
+//                ", party=" + party +
+//                '}';
+//    }
 }

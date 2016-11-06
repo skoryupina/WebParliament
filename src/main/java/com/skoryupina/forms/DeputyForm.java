@@ -1,6 +1,7 @@
 package com.skoryupina.forms;
 
 import com.skoryupina.entities.Deputy;
+import com.skoryupina.entities.JobType;
 
 public class DeputyForm {
     private Integer id;
@@ -11,6 +12,7 @@ public class DeputyForm {
     private String party;
 
     public DeputyForm() {
+        this.job = JobType.ORDINARY.toString();
     }
 
     public Integer getId() {

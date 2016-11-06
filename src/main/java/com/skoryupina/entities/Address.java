@@ -64,13 +64,13 @@ public class Address implements Serializable {
     //endregion
 
 
-    @Override
-    public String toString() {
-        return "Address{" +
-                "city='" + city + '\'' +
-                ", district='" + district + '\'' +
-                ", street='" + street + '\'' +
-                ", house=" + house +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Address{" +
+//                "city='" + city + '\'' +
+//                ", district='" + district + '\'' +
+//                ", street='" + street + '\'' +
+//                ", house=" + house +
+//                '}';
+//    }
 }

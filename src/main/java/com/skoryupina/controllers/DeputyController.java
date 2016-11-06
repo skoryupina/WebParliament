@@ -48,8 +48,7 @@ public class DeputyController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String edit(@RequestParam("id") Integer id, Model model){
-        System.out.println("edit");
+    public String editDeputy(@RequestParam("id") Integer id, Model model){
         System.out.println(deputyService.findById(id));
         DeputyForm deputyForm = new DeputyForm();
         deputyForm.feed(deputyService.findById(id));
@@ -58,23 +57,28 @@ public class DeputyController {
         return "forms/deputyform";
     }
 
+    @RequestMapping(value = "/new", method = RequestMethod.POST)
+    public String createDeputy(Model model){
+        DeputyForm deputyForm = new DeputyForm();
+        model.addAttribute("deputyForm", deputyForm);
+        model.addAttribute("edit", false);
+        return "forms/deputyform";
+    }
+
     @RequestMapping(value = "/deputy", method = RequestMethod.POST)
     public String saveDeputy(DeputyForm deputyForm){
         Deputy deputy;
         if (deputyForm.getId()!=null){
             //редактирование
-            System.out.println("save edit");
             deputy = deputyService.findById(deputyForm.getId());
         }else{
-            System.out.println("save new");
             deputy = new Deputy();
         }
         deputy.setName(deputyForm.getName());
         deputy.setSurname(deputyForm.getSurname());
+        deputy.setJob(JobType.getCorrespondingJobType(deputyForm.getJob()));
         deputy.setDistrict(districtService.findByName(deputyForm.getDistrict()));
         deputy.setParty(partyService.findByName(deputyForm.getParty()));
-
-        System.out.println(deputy.toString());
         deputyService.saveDeputy(deputy);
         return "redirect:/deputies";
     }
