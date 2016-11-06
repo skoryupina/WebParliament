@@ -62,4 +62,15 @@ public class Address implements Serializable {
         this.house = house;
     }
     //endregion
+
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "city='" + city + '\'' +
+                ", district='" + district + '\'' +
+                ", street='" + street + '\'' +
+                ", house=" + house +
+                '}';
+    }
 }

@@ -40,4 +40,14 @@ public class Meeting implements Serializable {
         this.id = id;
     }
     //endregion
+
+
+    @Override
+    public String toString() {
+        return "Meeting{" +
+                "id=" + id +
+                ", date=" + date +
+                ", deputies=" + deputies +
+                '}';
+    }
 }

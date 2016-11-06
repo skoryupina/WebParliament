@@ -46,10 +46,12 @@ public class District implements Serializable {
     }
     //endregion
 
+
     @Override
     public String toString() {
         return "District{" +
-                " name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

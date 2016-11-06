@@ -99,4 +99,18 @@ public class Deputy implements Serializable {
         this.meetings = meetings;
     }
     //endregion
+
+
+    @Override
+    public String toString() {
+        return "Deputy{" +
+                "id=" + id +
+                ", surname='" + surname + '\'' +
+                ", name='" + name + '\'' +
+                ", job=" + job +
+                ", meetings=" + meetings +
+                ", district=" + district +
+                ", party=" + party +
+                '}';
+    }
 }
