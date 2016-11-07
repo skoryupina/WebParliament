@@ -23,6 +23,10 @@ public class Deputy implements Serializable {
     @Enumerated(EnumType.STRING)
     private JobType job;
 
+//    @Lob
+//    @Column(name="image", nullable=true, columnDefinition="mediumblob")
+//    private byte[] image;
+
     @ManyToMany(mappedBy = "deputies")
     @OrderBy("date DESC")
     private Set<Meeting> meetings;
@@ -90,6 +94,14 @@ public class Deputy implements Serializable {
     public void setParty(Party party) {
         this.party = party;
     }
+
+//    public byte[] getImage() {
+//        return image;
+//    }
+//
+//    public void setImage(byte[] image) {
+//        this.image = image;
+//    }
 
     public Set<Meeting> getMeetings() {
         return meetings;
