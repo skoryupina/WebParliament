@@ -8,99 +8,102 @@
 </head>
 <body>
 <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
-<div class="container">
+<div class="container w3-card-4">
     <form class="form-horizontal" th:object="${deputyForm}" action="#" th:action="@{/deputies/deputy}" method="post">
         <!--Подзаголовок страницы-->
-        <div class="form-group" th:if="${edit}">
+        <header class="w3-container w3-light-grey form-group" th:if="${edit}">
             <h2><i>Редактирование информации о депутате</i></h2>
             <input type="hidden" th:field="*{id}"/>
-        </div>
-        <div class="form-group" th:unless="${edit}">
+        </header>
+        <header class="w3-container w3-light-grey form-group" th:unless="${edit}">
             <h2><i>Создание депутата</i></h2>
             <input type="hidden" th:field="*{id}"/>
-        </div>
+        </header>
 
-        <!--Личные данные-->
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="surname">Фамилия:</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="surname" pattern="^[А-Яа-яЁё\s]{3,}" th:field="*{surname}" th:required="required"
-                       placeholder="Введите фамилию депутата"/>
+        <div class="row">
+            <!--Изображение-->
+            <div class="col-sm-4 responsive" align="center">
+                <div class="img">
+                    <!--<img name="image" id="image" th:src="@{'data:image/jpeg;base64,'+${deputyForm.image}}" class="w3-left w3-circle"/>-->
+                    <img name="image" id="image" th:src="@{../images/noimage.jpg}" class="w3-circle"/>
+                    <div class="desc">
+                        <input type="file" id="file" name="file"/>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="name">Имя:</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="name" pattern="^[А-Яа-яЁё\s]{3,}" th:field="*{name}" th:required="required"
-                       placeholder="Введите имя депутата"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="file">Фотография:</label>
-            <div class="col-sm-10">
-                <input type="file" id="file" name="file" />
-            </div>
-        </div>
 
+            <!--Личные данные-->
+            <div class="col-sm-7">
+                <div class="form-group">
+                    <label class="control-label" for="surname"><span class="asterisk">*</span>Фамилия:</label>
+                    <input type="text" class="form-control" id="surname" pattern="^[А-Яа-яЁё\s]{3,}"
+                           th:field="*{surname}"
+                           th:required="required"
+                           placeholder="Введите фамилию депутата"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="name"><span class="asterisk">*</span>Имя:</label>
+                    <input type="text" class="form-control" id="name" pattern="^[А-Яа-яЁё\s]{3,}" th:field="*{name}"
+                           th:required="required"
+                           placeholder="Введите имя депутата"/>
+                </div>
 
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="name">Должность:</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="job" th:field="*{job}" readonly="readonly"/>
-            </div>
-        </div>
+                <div class="form-group">
+                    <label class="control-label" for="name"><span class="asterisk">*</span>Должность:</label>
+                    <input type="text" class="form-control" id="job" th:field="*{job}" readonly="readonly"/>
+                </div>
 
-        <!--Партия-->
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="party">Партия:</label>
-            <div class="col-sm-10">
-                <select class="form-control" id="party" name="party" th:field="*{party}" th:value="*{party}"></select>
-            </div>
-            <script>
-                $.getJSON("/parties/partiesNames", function (result) {
-                    var partySelect = $('#party');
-                    var currentParty = partySelect.attr( 'value' );
-                    console.log("Текущая партия:  " + currentParty);
-                    $.each(result, function (key, val) {
-                        partySelect.append(
-                                $('<option></option>').val(val.name).html(val.name)
-                        );
-                    })
-                    //при создании новой сущности
-                    if (currentParty!=null) {
-                        partySelect.val(currentParty);
-                    }
-                });
-            </script>
-        </div>
+                <!--Партия-->
+                <div class="form-group">
+                    <label class="control-label" for="party"><span class="asterisk">*</span>Партия:</label>
+                    <select class="form-control" id="party" name="party" th:field="*{party}"
+                            th:value="*{party}"></select>
+                    <script>
+                        $.getJSON("/parties/partiesNames", function (result) {
+                            var partySelect = $('#party');
+                            var currentParty = partySelect.attr('value');
+                            console.log("Текущая партия:  " + currentParty);
+                            $.each(result, function (key, val) {
+                                partySelect.append(
+                                        $('<option></option>').val(val.name).html(val.name)
+                                );
+                            })
+                            //при создании новой сущности
+                            if (currentParty != null) {
+                                partySelect.val(currentParty);
+                            }
+                        });
+                    </script>
+                </div>
 
-        <!--Округ-->
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="district">Округ:</label>
-            <div class="col-sm-10">
-                <select class="form-control" id="district" name="district" th:field="*{district}" th:value="*{district}"></select>
-            </div>
-            <script>
-                $.getJSON("/districts/districtsNames", function(result) {
-                    var districtSelect = $('#district');
-                    var currentDistrict = districtSelect.attr( 'value' );
-                    console.log("Текущий округ:  " + currentDistrict);
-                    $.each(result, function (key, val) {
-                        districtSelect.append(
-                                $('<option></option>').val(val.name).html(val.name)
-                        );
-                    })
-                    //при создании новой сущности
-                    if (currentDistrict!=null) {
-                        districtSelect.val(currentDistrict);
-                    }
-                });
-            </script>
-        </div>
+                <!--Округ-->
+                <div class="form-group">
+                    <label class="control-label" for="district"><span class="asterisk">*</span>Округ:</label>
+                    <select class="form-control" id="district" name="district" th:field="*{district}"
+                            th:value="*{district}"></select>
+                    <script>
+                        $.getJSON("/districts/districtsNames", function (result) {
+                            var districtSelect = $('#district');
+                            var currentDistrict = districtSelect.attr('value');
+                            console.log("Текущий округ:  " + currentDistrict);
+                            $.each(result, function (key, val) {
+                                districtSelect.append(
+                                        $('<option></option>').val(val.name).html(val.name)
+                                );
+                            })
+                            //при создании новой сущности
+                            if (currentDistrict != null) {
+                                districtSelect.val(currentDistrict);
+                            }
+                        });
+                    </script>
+                </div>
 
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Сохранить</button>
+                <div class="form-group">
+                    <div class="col-sm-offset-2">
+                        <button type="submit" class="btn btn-default">Сохранить</button>
+                    </div>
+                </div>
             </div>
         </div>
     </form>
