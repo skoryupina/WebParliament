@@ -8,6 +8,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
@@ -81,6 +83,16 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         return districts;
     }
 
+    private byte[] createImage(){
+        File file = new File(getClass().getResource("/static/images/noimage.jpg").getFile());
+        byte[] bFile = new byte[(int) file.length()];
+        try (FileInputStream fileInputStream = new FileInputStream(file)) {
+            fileInputStream.read(bFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bFile;
+    }
 
     private ArrayList<Deputy> createDeputies( ArrayList<District> districts) {
         String[] names = new String[]{
@@ -89,6 +101,9 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         String[] surnames = new String[]{
                 "Иванов", "Петров", "Алексеев", "Семенов", "Георгиев", "Денисов", "Степанов", "Тимофеев", "Леонтьев", "Романов", "Дмитриев", "Павлов"
         };
+
+        byte[] bFile = createImage();
+
         ArrayList<Deputy> deputies = new ArrayList<>();
 
         Random random = new Random();
@@ -97,6 +112,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
             deputy.setName(names[i]);
             deputy.setSurname(surnames[i]);
             deputy.setJob(JobType.ORDINARY);
+            deputy.setImage(bFile);
 
             int index = random.nextInt(districts.size()-1);
             deputy.setDistrict(districts.get(index));

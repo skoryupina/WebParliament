@@ -1,5 +1,7 @@
 package com.skoryupina.entities;
 
+import org.apache.tomcat.util.codec.binary.Base64;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -23,9 +25,9 @@ public class Deputy implements Serializable {
     @Enumerated(EnumType.STRING)
     private JobType job;
 
-//    @Lob
-//    @Column(name="image", nullable=true, columnDefinition="mediumblob")
-//    private byte[] image;
+    @Lob
+    @Column(name="image", nullable=true, columnDefinition="bytea")
+    private byte[] image;
 
     @ManyToMany(mappedBy = "deputies")
     @OrderBy("date DESC")
@@ -95,13 +97,13 @@ public class Deputy implements Serializable {
         this.party = party;
     }
 
-//    public byte[] getImage() {
-//        return image;
-//    }
-//
-//    public void setImage(byte[] image) {
-//        this.image = image;
-//    }
+    public String getImage() {
+        return Base64.encodeBase64String(image);
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 
     public Set<Meeting> getMeetings() {
         return meetings;

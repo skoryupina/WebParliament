@@ -17,7 +17,11 @@
 <div class="w3-container">
     <ul class="w3-ul w3-card-4 w3-hoverable list" th:if="${not #lists.isEmpty(deputies)}">
         <li class="w3-padding-16 list-item" th:each="deputy : ${deputies}">
-            <span class="w3-xlarge" th:text="${deputy.name}"></span>
+            <img th:src="@{'data:image/jpeg;base64,'+${deputy.image}}" class="w3-left w3-circle w3-margin-right" style="width:60px" />
+            <!--<img th:src="@{../images/noimage.jpg}" class="w3-left w3-circle w3-margin-right" style="width:60px"/>-->
+            <span class="w3-xlarge" th:text="${deputy.name}">Имя</span>
+            <span class="w3-xlarge" th:text="${deputy.surname}">Фамилия</span><br/>
+            <span class="w3-small" th:text="${deputy.party.name}">Партия</span>
             <form action="#" th:action="@{/deputies/edit}" method="post">
                 <input type="hidden" name="id" th:value="${deputy.id}" />
                 <input class="w3-btn w3-padding w3-green control" type="submit" value="Редактировать" />
