@@ -6,6 +6,7 @@ import com.skoryupina.forms.DeputyForm;
 import com.skoryupina.services.DeputyService;
 import com.skoryupina.services.DistrictService;
 import com.skoryupina.services.PartyService;
+import com.skoryupina.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public class DeputyController {
     private DeputyService deputyService;
     private PartyService partyService;
     private DistrictService districtService;
+    private StorageService storageService;
 
     @Autowired
     public void setDeputyService(DeputyService deputyService){
@@ -38,6 +41,11 @@ public class DeputyController {
     @Autowired
     public void setDistrictService(DistrictService districtService) {
         this.districtService = districtService;
+    }
+
+    @Autowired
+    public void setStorageService(StorageService storageService) {
+        this.storageService = storageService;
     }
 
     @RequestMapping("")
@@ -65,13 +73,17 @@ public class DeputyController {
     }
 
     @RequestMapping(value = "/deputy", method = RequestMethod.POST)
-    public String saveDeputy(DeputyForm deputyForm){
+    public String saveDeputy(@RequestParam("file") MultipartFile file, DeputyForm deputyForm){
         Deputy deputy;
         if (deputyForm.getId()!=null){
             //редактирование
             deputy = deputyService.findById(deputyForm.getId());
         }else{
             deputy = new Deputy();
+        }
+        if (file.getSize()!=0){
+            byte[] imageToStore = storageService.store(file);
+            deputy.setImage(imageToStore);
         }
         deputy.setName(deputyForm.getName());
         deputy.setSurname(deputyForm.getSurname());

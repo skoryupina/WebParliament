@@ -8,6 +8,8 @@ public class DeputyForm {
     private String surname;
     private String name;
     private String job;
+    private String image;
+    private boolean avaExists;
     private String district;
     private String party;
 
@@ -48,6 +50,22 @@ public class DeputyForm {
         this.job = job;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public boolean getAva() {
+        return avaExists;
+    }
+
+    public void setAva(boolean isImageNull) {
+        this.avaExists = isImageNull;
+    }
+
     public String getDistrict() {
         return district;
     }
@@ -71,6 +89,8 @@ public class DeputyForm {
         setSurname(deputy.getSurname());
         setName(deputy.getName());
         setJob(deputy.getJob().toString());
+        setImage(deputy.getImage());
+        setAva(deputy.isImageNull());
         setDistrict(deputy.getDistrict().getName());
         setParty(deputy.getParty().getName());
     }

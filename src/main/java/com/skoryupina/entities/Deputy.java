@@ -101,6 +101,11 @@ public class Deputy implements Serializable {
         return Base64.encodeBase64String(image);
     }
 
+    public boolean isImageNull(){
+        System.out.println("Image null? " + (image==null));
+        return image==null;
+    }
+
     public void setImage(byte[] image) {
         this.image = image;
     }
