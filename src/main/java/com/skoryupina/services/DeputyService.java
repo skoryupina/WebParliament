@@ -12,4 +12,6 @@ public interface DeputyService {
     List<Deputy> findBySurname(String surname);
 
     Deputy findById(Integer id);
+
+    void removeDeputy(Integer id);
 }

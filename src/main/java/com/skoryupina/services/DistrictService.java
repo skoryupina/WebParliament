@@ -10,4 +10,6 @@ public interface DistrictService {
     District findByName(String name);
 
     District findById(Integer id);
+
+    void removeDistrict(Integer id);
 }

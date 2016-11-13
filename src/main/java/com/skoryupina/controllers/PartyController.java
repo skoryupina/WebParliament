@@ -73,6 +73,12 @@ public class PartyController {
         return "redirect:/parties";
     }
 
+    @RequestMapping(value="/delete", method = RequestMethod.POST)
+    public String remove(@RequestParam("id") Integer id){
+        partyService.removeParty(id);
+        return "redirect:/parties";
+    }
+
     @RequestMapping("/partiesNames")
     public @ResponseBody Iterable<Party> partiesJson() {
         return partyService.listAllParties();

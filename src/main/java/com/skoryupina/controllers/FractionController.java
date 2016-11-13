@@ -46,6 +46,12 @@ public class FractionController {
         return "forms/fractionform";
     }
 
+    @RequestMapping(value="/delete", method = RequestMethod.POST)
+    public String remove(@RequestParam("id") Integer id){
+        fractionService.removeFraction(id);
+        return "redirect:/fractions";
+    }
+
     @RequestMapping(value = "/fraction", method = RequestMethod.POST)
     public String saveFraction(@RequestParam(name = "chosen[]") String[] chosenParties, FractionForm fractionForm) {
         Fraction fraction;

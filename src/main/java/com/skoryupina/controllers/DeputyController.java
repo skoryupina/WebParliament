@@ -94,6 +94,12 @@ public class DeputyController {
         return "redirect:/deputies";
     }
 
+    @RequestMapping(value="/delete", method = RequestMethod.POST)
+    public String remove(@RequestParam("id") Integer id){
+        deputyService.removeDeputy(id);
+        return "redirect:/deputies";
+    }
+
     @RequestMapping("/jobTypes")
     public @ResponseBody Iterable<String> partiesJson() {
         Field[] declaredFields = JobType.class.getFields();

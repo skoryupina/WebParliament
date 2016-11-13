@@ -34,4 +34,9 @@ public class DistrictServiceImpl implements DistrictService {
     public District findById(Integer id) {
         return districtRepository.findOne(id);
     }
+
+    @Override
+    public void removeDistrict(Integer id) {
+        districtRepository.delete(id);
+    }
 }

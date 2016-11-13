@@ -10,4 +10,6 @@ public interface PartyService {
     Party findByName(String name);
 
     Party findById(Integer id);
+
+    void removeParty(Integer id);
 }

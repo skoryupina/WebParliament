@@ -36,4 +36,9 @@ public class FractionServiceImpl implements FractionService {
     public Fraction findById(Integer id) {
         return fractionRepository.findOne(id);
     }
+
+    @Override
+    public void removeFraction(Integer id) {
+        fractionRepository.delete(id);
+    }
 }

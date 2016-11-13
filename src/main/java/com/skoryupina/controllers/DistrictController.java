@@ -44,6 +44,12 @@ public class DistrictController {
         return "redirect:/districts";
     }
 
+    @RequestMapping(value="/delete", method = RequestMethod.POST)
+    public String remove(@RequestParam("id") Integer id){
+        districtService.removeDistrict(id);
+        return "redirect:/districts";
+    }
+
     @RequestMapping("/districtsNames")
     public @ResponseBody Iterable<District> districtJson() {
         return districtService.listAllDistricts();

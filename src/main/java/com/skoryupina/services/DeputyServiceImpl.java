@@ -36,4 +36,9 @@ public class DeputyServiceImpl implements DeputyService{
     public Deputy findById(Integer id) {
         return deputyRepository.findOne(id);
     }
+
+    @Override
+    public void removeDeputy(Integer id) {
+        deputyRepository.delete(id);
+    }
 }

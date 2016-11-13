@@ -34,4 +34,9 @@ public class PartyServiceImpl implements PartyService {
     public Party findById(Integer id) {
         return partyRepository.findOne(id);
     }
+
+    @Override
+    public void removeParty(Integer id) {
+        partyRepository.delete(id);
+    }
 }

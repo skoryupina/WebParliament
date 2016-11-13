@@ -12,4 +12,6 @@ public interface FractionService {
     List<Fraction> findByName(String name);
 
     Fraction findById(Integer id);
+
+    void removeFraction(Integer id);
 }
