@@ -39,7 +39,7 @@ public class PartyController {
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
-    public String createDeputy(Model model){
+    public String createParty(Model model){
         PartyForm partyForm = new  PartyForm();
         model.addAttribute("partyForm", partyForm);
         model.addAttribute("edit", false);

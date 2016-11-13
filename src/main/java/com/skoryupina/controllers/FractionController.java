@@ -1,7 +1,10 @@
 package com.skoryupina.controllers;
 
 import com.skoryupina.entities.Fraction;
+import com.skoryupina.entities.Party;
+import com.skoryupina.forms.FractionForm;
 import com.skoryupina.services.FractionService;
+import com.skoryupina.services.PartyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,14 +12,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Controller
 @RequestMapping("/fractions")
 public class FractionController {
     private FractionService fractionService;
+    private PartyService partyService;
 
     @Autowired
-    public void setFractionService(FractionService fractionService){
+    public void setFractionService(FractionService fractionService) {
         this.fractionService = fractionService;
+    }
+
+    @Autowired
+    public void setPartyService(PartyService partyService) {
+        this.partyService = partyService;
     }
 
     @RequestMapping("")
@@ -26,18 +38,48 @@ public class FractionController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String edit(@RequestParam("id") Integer id, Model model){
-        System.out.println("edit");
-        System.out.println(fractionService.findById(id));
-        model.addAttribute("fraction", fractionService.findById(id));
+    public String edit(@RequestParam("id") Integer id, Model model) {
+        FractionForm fractionForm = new FractionForm();
+        fractionForm.feed(fractionService.findById(id), partyService.listAllParties());
+        model.addAttribute("fractionForm", fractionForm);
+        model.addAttribute("edit", true);
         return "forms/fractionform";
     }
 
     @RequestMapping(value = "/fraction", method = RequestMethod.POST)
-    public String saveFraction(Fraction fraction){
-        System.out.println("save");
-        System.out.println(fraction.toString());
-        fractionService.saveFraction(fraction);
+    public String saveFraction(@RequestParam(name = "chosen[]") String[] chosenParties, FractionForm fractionForm) {
+        Fraction fraction;
+        if (fractionForm.getId() == null) {
+            fraction = new Fraction();
+            fraction.setName(fractionForm.getName());
+            fraction = fractionService.saveFraction(fraction);
+        }else{
+            fraction = fractionService.findById(fractionForm.getId());
+            fraction.setName(fractionForm.getName());
+        }
+        if (chosenParties.length != 0) {
+            Set<Party> newParties = new HashSet<>();
+            for (String idStr : chosenParties) {
+                Integer id = Integer.parseInt(idStr);
+                Party party = partyService.findById(id);
+                party.setFraction(fraction);
+                newParties.add(party);
+                partyService.saveParty(party);
+            }
+            fraction.setParties(newParties);
+            fractionService.saveFraction(fraction);
+        }
         return "redirect:/fractions";
+    }
+
+    @RequestMapping(value = "/new", method = RequestMethod.POST)
+    public String createFraction(Model model) {
+        FractionForm fractionForm = new FractionForm();
+        Fraction fraction = new Fraction();
+        Iterable<Party> partiesInWebParliament = partyService.listAllParties();
+        fractionForm.feed(fraction, partiesInWebParliament);
+        model.addAttribute("fractionForm", fractionForm);
+        model.addAttribute("edit", false);
+        return "forms/fractionform";
     }
 }

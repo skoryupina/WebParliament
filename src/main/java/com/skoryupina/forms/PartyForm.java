@@ -9,6 +9,7 @@ public class PartyForm {
     private Integer phoneNumber;
     private String leaderData;
     private Integer leaderID;
+    private Iterable<Deputy> deputies;
     private String city;
     private String district;
     private String street;
@@ -55,6 +56,14 @@ public class PartyForm {
         this.leaderID = leader.getId();
     }
 
+    public Iterable<Deputy> getDeputies() {
+        return deputies;
+    }
+
+    public void setDeputies(Iterable<Deputy> deputies) {
+        this.deputies = deputies;
+    }
+
     public String getCity() {
         return city;
     }
@@ -94,5 +103,6 @@ public class PartyForm {
         setPhoneNumber(party.getPhoneNumber());
         setLeaderData(party.getLeader());
         setLeaderID(party.getLeader());
+        setDeputies(party.getDeputies());
     }
 }

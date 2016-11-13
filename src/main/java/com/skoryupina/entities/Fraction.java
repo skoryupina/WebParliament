@@ -17,13 +17,7 @@ public class Fraction implements Serializable {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @Column(name = "phonenumber", nullable = false, unique = true)
-    private Integer phoneNumber;
-
-    @Embedded
-    private Address address;
-
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "fraction",fetch = FetchType.EAGER)
     @JoinColumn(name = "fraction_id", nullable = true)
     private Set<Party> parties;
 
@@ -32,11 +26,7 @@ public class Fraction implements Serializable {
 
     public Fraction(String name, Integer phoneNumber, Address address) {
         this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
     }
-
-
 
     //region getters_and_setters
     public Integer getId() {
@@ -55,32 +45,13 @@ public class Fraction implements Serializable {
         this.name = name;
     }
 
-    public Integer getPhoneNumber() {
-        return phoneNumber;
+    public Set<Party> getParties() {
+        return parties;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setParties(Set<Party> parties) {
+        this.parties = parties;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
     //endregion
-
-
-//    @Override
-//    public String toString() {
-//        return "Fraction{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", phoneNumber=" + phoneNumber +
-//                ", address=" + address +
-//                ", parties=" + parties +
-//                '}';
-//    }
 }

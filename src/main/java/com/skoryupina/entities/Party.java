@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -24,6 +25,8 @@ public class Party implements Serializable {
     @OneToOne (fetch = FetchType.LAZY)
     @JoinColumn(name="leader_id", nullable = true)
     private Deputy leader;
+
+    private Fraction fraction;
 
     @OneToMany(mappedBy = "party", fetch = FetchType.LAZY)
     @JoinColumn(name = "id_party", nullable = true)
@@ -79,6 +82,15 @@ public class Party implements Serializable {
     }
 
     @JsonIgnore
+    public Fraction getFraction() {
+        return fraction;
+    }
+
+    public void setFraction(Fraction fraction) {
+        this.fraction = fraction;
+    }
+
+    @JsonIgnore
     public Address getAddress() {
         return address;
     }
@@ -97,6 +109,19 @@ public class Party implements Serializable {
     }
 
     //endregion
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Party party = (Party) o;
+        return Objects.equals(name, party.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 
 
 //    @Override
