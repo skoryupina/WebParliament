@@ -34,7 +34,7 @@ public class Deputy implements Serializable {
     @OrderBy("date DESC")
     private Set<Meeting> meetings;
 
-    @OneToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_district", nullable = false)
     private District district;
 

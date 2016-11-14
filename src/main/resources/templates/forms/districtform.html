@@ -7,30 +7,35 @@
     <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
 <body>
-<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
-<div class="container">
-    <form class="form-horizontal" th:object="${district}" action="#" th:action="@{/districts/district}" method="post">
-        <!--Подзаголовок страницы-->
-        <div class="form-group">
-            <h2><i>Редактирование информации об округе</i></h2>
-            <input type="hidden" th:field="*{id}"/>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Наименование:</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" th:field="*{name}"/>
-            </div>
-        </div>
+<ul class="breadcrumb">
+    <li><a href="#" th:href="@{/districts}">К списку округов</a></li>
+</ul>
+<div class="container w3-card-4">
+    <div class="container">
+        <form class="form-horizontal" th:object="${district}" action="#" th:action="@{/districts/district}"
+              method="post">
+            <!--Подзаголовок страницы-->
+            <header class="w3-container w3-light-grey form-group">
+                <h2><i>Редактирование информации об округе</i></h2>
+                <input type="hidden" th:field="*{id}"/>
+            </header>
+            <div class="col-sm-7">
+                <div class="form-group">
+                    <label class="control-label" for="name"><span class="asterisk">*</span>Наименование:</label>
+                    <input type="text" class="form-control" id="name" th:field="*{name}"/>
+                </div>
 
-        <!--Сохранить-->
-        <div class="form-group">
-            <div class="col-sm-offset-2">
-                <button type="submit" class="btn btn-default green">Сохранить</button>
-                <a href="#" th:href="@{/districts}" class="btn btn-default white">Отмена</a>
+
+                <!--Сохранить-->
+                <div class="form-group">
+                    <div class="col-sm-offset-2">
+                        <button type="submit" class="btn btn-default green">Сохранить</button>
+                        <a href="#" th:href="@{/districts}" class="btn btn-default white">Отмена</a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
-
 </body>
 </html>
