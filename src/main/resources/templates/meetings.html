@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Заседания</title>
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<h2>Список заседаний</h2>
+<ul class="breadcrumb">
+    <li><a href="#" th:href="@{/index}">Главная</a></li>
+    <li><a href="#" th:href="@{/meetings}">Заседания</a></li>
+</ul>
+
+
+<div class="w3-container">
+    <ul class="w3-ul w3-card-4 w3-hoverable list" th:if="${not #lists.isEmpty(meetings)}">
+        <li class="w3-padding-16 list-item" th:each="meeting : ${meetings}">
+            <span class="w3-xlarge" th:text="${meeting.topic}"></span>
+            <span class="w3-small" th:text="${meeting.date}"></span>
+            <form action="#" th:action="@{/meetings/edit}" method="post">
+                <input type="hidden" name="id" th:value="${meeting.id}" />
+                <input class="w3-btn w3-padding w3-green control" type="submit" value="Редактировать" />
+            </form>
+            <form action="#" th:action="@{/meetings/delete}" method="post">
+                <input type="hidden" name="id" th:value="${meeting.id}" />
+                <input class="w3-btn w3-padding w3-light-grey control" type="submit" value="Удалить" />
+            </form>
+        </li>
+    </ul>
+</div>
+
+<form action="#" th:action="@{/meetings/new}" method="post">
+    <button class="w3-btn-floating-large w3-ripple w3-teal add" type="submit" value="+">+</button>
+</form>
+</body>
+</html>

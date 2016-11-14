@@ -11,4 +11,8 @@ public interface MeetingsService {
     Meeting saveMeeting(Meeting meeting);
 
     List<Meeting> findByDate(Date date);
+
+    void removeMeeting(Integer id);
+
+    Meeting findById(Integer id);
 }

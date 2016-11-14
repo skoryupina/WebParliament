@@ -32,4 +32,14 @@ public class MeetingsServiceImpl implements MeetingsService {
     public List<Meeting> findByDate(Date date) {
         return meetingRepository.findByDate(date);
     }
+
+    @Override
+    public void removeMeeting(Integer id) {
+        meetingRepository.delete(id);
+    }
+
+    @Override
+    public Meeting findById(Integer id) {
+        return meetingRepository.findOne(id);
+    }
 }

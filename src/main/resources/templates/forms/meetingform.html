@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="ru">
 
-    <title>Фракция</title>
+    <title>Заседание</title>
 
     <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
     <!--Multiselect KendoUI-->
@@ -17,38 +17,38 @@
 <body>
 <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 <div class="container">
-    <form class="form-horizontal" th:object="${fractionForm}" action="#" th:action="@{/fractions/fraction}"
+    <form class="form-horizontal" th:object="${meetingForm}" action="#" th:action="@{/meetings/meeting}"
           method="post">
         <!--Подзаголовок страницы-->
         <div class="form-group" th:if="${edit}">
-            <h2><i>Редактирование информации о фракции</i></h2>
+            <h2><i>Редактирование информации о заседании</i></h2>
             <input type="hidden" th:field="*{id}"/>
         </div>
         <div class="form-group" th:unless="${edit}">
-            <h2><i>Создание фракции</i></h2>
+            <h2><i>Создание заседания</i></h2>
             <input type="hidden" th:field="*{id}"/>
         </div>
 
         <!--Данные фракции-->
         <div class="form-group">
-            <label class="control-label col-sm-2" for="name">Наименование:</label>
+            <label class="control-label col-sm-2" for="topic">Тема заседания:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="name" pattern="^[А-Яа-яЁё\s]{3,}" th:field="*{name}"
+                <input type="text" class="form-control" id="topic" pattern="^[А-Яа-яЁё\s]{3,}" th:field="*{topic}"
                        th:required="required"
-                       placeholder="Введите наименование фракции"/>
+                       placeholder="Введите тему заседания.."/>
             </div>
         </div>
 
-        <!--Партии, входящие во фракцию-->
-        <div class="form-group" th:if="${not #lists.isEmpty(fractionForm.parties)}">
-            <label class="control-label col-sm-2" for="required">Партии:</label>
+        <!--Депутаты, участвующие в заседании-->
+        <div class="form-group" th:if="${not #lists.isEmpty(meetingForm.deputies)}">
+            <label class="control-label col-sm-2" for="required">Депутаты:</label>
             <div class="col-sm-10">
-                <select id="required" multiple="multiple" name="chosen[]" data-placeholder="Выберите партии...">
-                    <option th:each="party : ${fractionForm.parties}" th:value="${party.key.id}" th:text="${party.key.name}" th:if="${party.value}"
-                            th:selected="selected">Название партии
+                <select id="required" multiple="multiple" name="chosenDeputies[]" data-placeholder="Выберите депутатов...">
+                    <option th:each="deputy : ${meetingForm.deputies}" th:value="${deputy.key.id}" th:text="${deputy.key.name} + ' '+ ${deputy.key.surname}" th:if="${deputy.value}"
+                            th:selected="selected">ФИО Депутата
                     </option>
-                    <option th:each="party : ${fractionForm.parties}" th:value="${party.key.id}" th:text="${party.key.name}"
-                            th:unless="${party.value}">Название партии
+                    <option th:each="deputy : ${meetingForm.deputies}" th:value="${deputy.key.id}" th:text="${deputy.key.name} + ' ' + ${deputy.key.surname}"
+                            th:unless="${deputy.value}">ФИО Депутата
                     </option>
                 </select>
             </div>
@@ -73,8 +73,8 @@
         var required = $("#required").kendoMultiSelect().data("kendoMultiSelect");
 
         $("#get").click(function () {
-         alert(required.value());
-         });
+            alert(required.value());
+        });
     });
 </script>
 </body>

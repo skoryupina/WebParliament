@@ -1,8 +1,11 @@
 package com.skoryupina.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -18,6 +21,10 @@ public class Meeting implements Serializable {
     @Column (name ="date", nullable = false)
     private Date date;
 
+    @Column (name ="topic", nullable = false)
+    private String topic;
+
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="deputy_meeting",
             joinColumns = @JoinColumn(name="meeting_fk"),
@@ -39,7 +46,45 @@ public class Meeting implements Serializable {
     protected void setId(Integer id) {
         this.id = id;
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    public Set<Deputy> getDeputies() {
+        return deputies;
+    }
+
+    public void setDeputies(Set<Deputy> deputies) {
+        this.deputies = deputies;
+    }
+
     //endregion
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Meeting meeting = (Meeting) o;
+        return Objects.equals(id, meeting.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
 
 //    @Override
