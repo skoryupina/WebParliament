@@ -22,13 +22,13 @@ public class Party implements Serializable {
     @Column(name = "phoneNumber", nullable = false, unique = true)
     private Integer phoneNumber;
 
-    @OneToOne (fetch = FetchType.LAZY)
+    @OneToOne (cascade = {CascadeType.PERSIST,CascadeType.REMOVE}, fetch = FetchType.LAZY)
     @JoinColumn(name="leader_id", nullable = true)
     private Deputy leader;
 
     private Fraction fraction;
 
-    @OneToMany(mappedBy = "party", fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE}, mappedBy = "party", fetch = FetchType.EAGER)
     @JoinColumn(name = "id_party", nullable = true)
     private Set<Deputy> deputies;
 

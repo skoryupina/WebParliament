@@ -79,7 +79,6 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
             district.setName(districtName);
             districts.add(district);
         }
-        districtRepository.save(districts);
         return districts;
     }
 
@@ -120,10 +119,6 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
             deputies.add(deputy);
         }
 
-        districtRepository.save(districts);
-        deputyRepository.save(deputies);
-
-
         return deputies;
     }
 
@@ -155,7 +150,6 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         }
 
         partyRepository.save(parties);
-        deputyRepository.save(deputies);
 
         return parties;
     }
