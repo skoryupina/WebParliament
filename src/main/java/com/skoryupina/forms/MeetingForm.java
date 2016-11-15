@@ -15,6 +15,7 @@ public class MeetingForm {
     private Integer id;
     private String date;
     private String topic;
+    private Set<Deputy> present;
     private Map<Deputy, Boolean> deputies = new HashMap<>();
 
     //region getters_and_setters
@@ -46,7 +47,15 @@ public class MeetingForm {
         return deputies;
     }
 
-    private void setDeputies(@Nullable Set<Deputy> deputiesInMeeting,@Nullable  Iterable<Deputy> deputiesInWebParliament) {
+    public Set<Deputy> getPresent() {
+        return present;
+    }
+
+    public void setPresent(Set<Deputy> present) {
+        this.present = present;
+    }
+
+    private void setDeputies(@Nullable Set<Deputy> deputiesInMeeting, @Nullable  Iterable<Deputy> deputiesInWebParliament) {
         if (deputiesInMeeting == null || deputiesInMeeting.size()==0) {
             for (Deputy deputy : deputiesInWebParliament) {
                 deputies.put(deputy, false);
@@ -70,6 +79,7 @@ public class MeetingForm {
             setDate(meetingDate);
         }
         setDeputies(meeting.getDeputies(), deputiesInWebParliament);
+        setPresent(meeting.getDeputies());
     }
 
 
