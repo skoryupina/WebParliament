@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="ru">
+
+    <title>Партия</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<ul class="breadcrumb">
+    <li><a href="#" th:href="@{/parties}">К списку партий</a></li>
+</ul>
+<div class="container w3-card-4">
+    <form class="form-horizontal" th:object="${partyForm}">
+        <!--Подзаголовок страницы-->
+        <header class="w3-container w3-light-grey form-group">
+            <h2><i>Подробнее о партии</i></h2>
+            <input type="hidden" th:field="*{id}"/>
+        </header>
+        <div class="col-sm-12">
+            <!--Данные партии-->
+            <div class="form-group">
+                <label class="control-label" for="name">Наименование:</label>
+                <span id="name" th:text="*{name}"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="phoneNumber">Телефон:</label>
+                <span  id="phoneNumber"  th:text="*{phoneNumber}"></span>
+            </div>
+
+            <!--Адрес-->
+            <div class="form-group">
+                <label class="control-label" for="city">Город:</label>
+                <span id="city" th:text="*{city}"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="district">Район:</label>
+                <span id="district" th:text="*{district}"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="street">Улица:</label>
+                <span id="street" th:text="*{street}"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="house">Дом:</label>
+                <span id="house" th:text="*{house}"></span>
+            </div>
+            <div class="form-group" th:if="${not #lists.isEmpty(partyForm.deputies)}">
+                <label class="control-label" for="deputies">Список депутатов:</label>
+                <span th:each="deputy : ${partyForm.deputies}" id="deputies">
+                    <span th:text="${deputy.surname} + ' ' + ${deputy.name} + ';'"></span>
+                </span>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -17,10 +17,16 @@
 <div class="w3-container">
     <ul class="w3-ul w3-card-4 w3-hoverable list" th:if="${not #lists.isEmpty(parties)}">
         <li class="w3-padding-16 list-item" th:each="party : ${parties}">
-            <span class="w3-xlarge" th:text="${party.name}"></span>
+            <span class="w3-xlarge" th:text="${party.name}"></span><br/>
+            <span class="w3-small">Число депутатов: </span>
+            <span class="w3-small" th:text="${#lists.size(party.deputies)}"></span>
             <form action="#" th:action="@{/parties/edit}" method="post">
                 <input type="hidden" name="id" th:value="${party.id}" />
                 <input class="w3-btn w3-padding w3-green control" type="submit" value="Редактировать" />
+            </form>
+            <form action="#" th:action="@{/parties/view}" method="post">
+                <input type="hidden" name="id" th:value="${party.id}" />
+                <input class="w3-btn w3-padding w3-light-blue control" type="submit" value="Просмотр" />
             </form>
             <form action="#" th:action="@{/parties/delete}" method="post">
                 <input type="hidden" name="id" th:value="${party.id}" />

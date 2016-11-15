@@ -26,6 +26,10 @@
                 <input type="hidden" name="id" th:value="${deputy.id}" />
                 <input class="w3-btn w3-padding w3-green control" type="submit" value="Редактировать" />
             </form>
+            <form action="#" th:action="@{/deputies/view}" method="post">
+                <input type="hidden" name="id" th:value="${deputy.id}" />
+                <input class="w3-btn w3-padding w3-light-blue control" type="submit" value="Просмотр" />
+            </form>
             <form action="#" th:action="@{/deputies/delete}" method="post">
                 <input type="hidden" name="id" th:value="${deputy.id}" />
                 <input class="w3-btn w3-padding w3-light-grey control" type="submit" value="Удалить" />

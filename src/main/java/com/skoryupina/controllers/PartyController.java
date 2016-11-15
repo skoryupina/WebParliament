@@ -30,12 +30,19 @@ public class PartyController {
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String edit(@RequestParam("id") Integer id, Model model){
-        System.out.println(partyService.findById(id));
         PartyForm partyForm = new PartyForm();
         partyForm.feed(partyService.findById(id));
         model.addAttribute("partyForm", partyForm);
         model.addAttribute("edit", true);
         return "forms/partyform";
+    }
+
+    @RequestMapping(value = "/view", method = RequestMethod.POST)
+    public String view(@RequestParam("id") Integer id, Model model){
+        PartyForm partyForm = new PartyForm();
+        partyForm.feed(partyService.findById(id));
+        model.addAttribute("partyForm", partyForm);
+        return "views/partyview";
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)

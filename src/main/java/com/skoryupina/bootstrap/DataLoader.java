@@ -61,6 +61,8 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
         //создание партий
         ArrayList<Party> parties = createParties(deputies);
+
+        createFractions(parties);
     }
 
     private ArrayList<District> createDistricts() {
@@ -77,6 +79,11 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         for (String districtName : districtNames) {
             District district = new District();
             district.setName(districtName);
+            districts.add(district);
+        }
+        Iterable<District> savedDistricts = districtRepository.save(districts);
+        districts.clear();
+        for (District district : savedDistricts){
             districts.add(district);
         }
         return districts;
@@ -122,6 +129,29 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         return deputies;
     }
 
+    private void createFractions(ArrayList<Party> parties){
+        Fraction fraction1 = new Fraction();
+        fraction1.setName("Конфетная");
+        Set<Party> parties1 = new HashSet<>();
+        parties1.add(parties.get(0));
+        parties.get(0).setFraction(fraction1);
+        parties1.add(parties.get(1));
+        parties.get(1).setFraction(fraction1);
+        fraction1.setParties(parties1);
+
+        Fraction fraction2 = new Fraction();
+        fraction2.setName("Изумрудная");
+        Set<Party> parties2 = new HashSet<>();
+        parties2.add(parties.get(2));
+        parties.get(2).setFraction(fraction2);
+        parties2.add(parties.get(3));
+        parties.get(3).setFraction(fraction2);
+        fraction2.setParties(parties2);
+
+        fractionRepository.save(fraction1);
+        fractionRepository.save(fraction2);
+    }
+
     private ArrayList<Party> createParties(ArrayList<Deputy> deputies) {
         String[] names = new String[]{
                 "Красная", "Синяя", "Белая", "Русая"
@@ -136,11 +166,10 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
             Party party = new Party();
             party.setName(names[partyIndex]);
             party.setAddress(addresses.get(partyIndex));
-            deputies.get(deputyIndex).setJob(JobType.LEADER);
-            party.setLeader(deputies.get(deputyIndex));
-            deputies.get(deputyIndex).setParty(party);
             party.setPhoneNumber(phoneNumbers[partyIndex]);
             Set<Deputy> partyDeputies = new HashSet<>();
+            deputies.get(deputyIndex).setParty(party);
+            partyDeputies.add(deputies.get(deputyIndex));
             deputies.get(deputyIndex + 1).setParty(party);
             partyDeputies.add(deputies.get(deputyIndex + 1));
             deputies.get(deputyIndex + 2).setParty(party);
@@ -148,8 +177,6 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
             party.setDeputies(partyDeputies);
             parties.add(party);
         }
-
-        partyRepository.save(parties);
 
         return parties;
     }

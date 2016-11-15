@@ -34,7 +34,7 @@ public class Deputy implements Serializable {
     @OrderBy("date DESC")
     private Set<Meeting> meetings;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_district", nullable = false)
     private District district;
 
@@ -125,12 +125,14 @@ public class Deputy implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Deputy deputy = (Deputy) o;
-        return Objects.equals(id, deputy.id);
+        return Objects.equals(id, deputy.id) &&
+                Objects.equals(surname, deputy.surname) &&
+                Objects.equals(name, deputy.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, surname, name);
     }
 
 

@@ -22,10 +22,6 @@ public class Party implements Serializable {
     @Column(name = "phoneNumber", nullable = false, unique = true)
     private Integer phoneNumber;
 
-    @OneToOne (cascade = {CascadeType.PERSIST,CascadeType.REMOVE}, fetch = FetchType.LAZY)
-    @JoinColumn(name="leader_id", nullable = true)
-    private Deputy leader;
-
     private Fraction fraction;
 
     @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE}, mappedBy = "party", fetch = FetchType.EAGER)
@@ -41,7 +37,6 @@ public class Party implements Serializable {
     public Party(String name, Integer phoneNumber, Deputy leader, Address address) {
         this.name = name;
         this.phoneNumber = phoneNumber;
-        this.leader = leader;
         this.address = address;
     }
 
@@ -70,15 +65,6 @@ public class Party implements Serializable {
 
     public void setPhoneNumber(Integer phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    @JsonIgnore
-    public Deputy getLeader() {
-        return leader;
-    }
-
-    public void setLeader(Deputy leader) {
-        this.leader = leader;
     }
 
     @JsonIgnore
@@ -123,16 +109,4 @@ public class Party implements Serializable {
         return Objects.hash(name);
     }
 
-
-//    @Override
-//    public String toString() {
-//        return "Party{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", phoneNumber=" + phoneNumber +
-//                ", leader=" + leader +
-//                ", deputies=" + deputies +
-//                ", address=" + address +
-//                '}';
-//    }
 }

@@ -2,6 +2,7 @@ package com.skoryupina.controllers;
 
 import com.skoryupina.entities.Deputy;
 import com.skoryupina.entities.JobType;
+import com.skoryupina.entities.Party;
 import com.skoryupina.forms.DeputyForm;
 import com.skoryupina.services.DeputyService;
 import com.skoryupina.services.DistrictService;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
@@ -56,13 +59,21 @@ public class DeputyController {
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String editDeputy(@RequestParam("id") Integer id, Model model){
-        System.out.println(deputyService.findById(id));
         DeputyForm deputyForm = new DeputyForm();
         deputyForm.feed(deputyService.findById(id));
         model.addAttribute("deputyForm", deputyForm);
         model.addAttribute("edit", true);
         return "forms/deputyform";
     }
+
+    @RequestMapping(value = "/view", method = RequestMethod.POST)
+    public String view(@RequestParam("id") Integer id, Model model){
+        DeputyForm deputyForm = new DeputyForm();
+        deputyForm.feed(deputyService.findById(id));
+        model.addAttribute("deputyForm", deputyForm);
+        return "views/deputyview";
+    }
+
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     public String createDeputy(Model model){
@@ -84,12 +95,18 @@ public class DeputyController {
         if (file.getSize()!=0){
             byte[] imageToStore = storageService.store(file);
             deputy.setImage(imageToStore);
+        }else{
+            byte[] bFile = createImage();
+            deputy.setImage(bFile);
         }
         deputy.setName(deputyForm.getName());
         deputy.setSurname(deputyForm.getSurname());
         deputy.setJob(JobType.getCorrespondingJobType(deputyForm.getJob()));
         deputy.setDistrict(districtService.findByName(deputyForm.getDistrict()));
-        deputy.setParty(partyService.findByName(deputyForm.getParty()));
+        Party newParty = partyService.findByName(deputyForm.getParty());
+        newParty.getDeputies().add(deputy);
+        deputy.setParty(newParty);
+        partyService.saveParty(newParty);
         deputyService.saveDeputy(deputy);
         return "redirect:/deputies";
     }
@@ -110,5 +127,15 @@ public class DeputyController {
         return jobTypes;
     }
 
+    private byte[] createImage(){
+        File file = new File(getClass().getResource("/static/images/noimage.jpg").getFile());
+        byte[] bFile = new byte[(int) file.length()];
+        try (FileInputStream fileInputStream = new FileInputStream(file)) {
+            fileInputStream.read(bFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bFile;
+    }
 
 }

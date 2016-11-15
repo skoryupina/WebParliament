@@ -7,8 +7,6 @@ public class PartyForm {
     private Integer id;
     private String name;
     private Integer phoneNumber;
-    private String leaderData;
-    private Integer leaderID;
     private Iterable<Deputy> deputies;
     private String city;
     private String district;
@@ -38,22 +36,6 @@ public class PartyForm {
 
     public void setPhoneNumber(Integer phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getLeaderData() {
-        return leaderData;
-    }
-
-    public void setLeaderData(Deputy leader) {
-        this.leaderData = leader.getSurname() + " " + leader.getName();
-    }
-
-    public Integer getLeaderID() {
-        return leaderID;
-    }
-
-    public void setLeaderID(Deputy leader) {
-        this.leaderID = leader.getId();
     }
 
     public Iterable<Deputy> getDeputies() {
@@ -101,8 +83,13 @@ public class PartyForm {
         setId(party.getId());
         setName(party.getName());
         setPhoneNumber(party.getPhoneNumber());
-        setLeaderData(party.getLeader());
-        setLeaderID(party.getLeader());
         setDeputies(party.getDeputies());
+        if (party.getAddress()!=null){
+            setCity(party.getAddress().getCity());
+            setDistrict(party.getAddress().getDistrict());
+            setStreet(party.getAddress().getStreet());
+            setHouse(party.getAddress().getHouse());
+        }
+
     }
 }
