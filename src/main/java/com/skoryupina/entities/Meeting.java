@@ -18,10 +18,10 @@ public class Meeting implements Serializable {
     private Integer id;
 
     @Temporal(TemporalType.DATE)
-    @Column (name ="date", nullable = false)
+    @Column (name ="date", nullable = true)
     private Date date;
 
-    @Column (name ="topic", nullable = false)
+    @Column (name ="topic", nullable = true)
     private String topic;
 
     @JsonIgnore

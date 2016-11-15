@@ -4,7 +4,8 @@ import com.skoryupina.entities.Deputy;
 import com.skoryupina.entities.Meeting;
 import com.sun.istack.internal.Nullable;
 
-import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -12,7 +13,7 @@ import java.util.Set;
 public class MeetingForm {
 
     private Integer id;
-    private Date date;
+    private String date;
     private String topic;
     private Map<Deputy, Boolean> deputies = new HashMap<>();
 
@@ -25,11 +26,11 @@ public class MeetingForm {
         this.id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -61,6 +62,13 @@ public class MeetingForm {
     public void feed(Meeting meeting, Iterable<Deputy> deputiesInWebParliament) {
         setId(meeting.getId());
         setTopic(meeting.getTopic());
+
+        if (meeting.getDate()!=null) {
+            //установка формата даты
+            DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+            String meetingDate = df.format(meeting.getDate());
+            setDate(meetingDate);
+        }
         setDeputies(meeting.getDeputies(), deputiesInWebParliament);
     }
 

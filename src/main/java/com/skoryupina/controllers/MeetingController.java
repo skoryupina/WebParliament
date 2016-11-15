@@ -12,6 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 @Controller
 @RequestMapping("/meetings")
 public class MeetingController {
@@ -31,7 +38,7 @@ public class MeetingController {
 
     @RequestMapping("")
     public String index(Model model) {
-        model.addAttribute("deputies", deputyService.listAllDeputies());
+        model.addAttribute("meetings", meetingsService.listAllMeetings());
         return "meetings";
     }
 
@@ -56,17 +63,46 @@ public class MeetingController {
     }
 
     @RequestMapping(value = "/meeting", method = RequestMethod.POST)
-    public String saveDeputy(MeetingForm meetingForm){
+    public String saveDeputy(@RequestParam(name = "chosenDeputies[]") String[] chosenDeputies, MeetingForm meetingForm){
         Meeting meeting;
-        if (meetingForm.getId()!=null){
+        if (meetingForm.getId()==null){
             //редактирование
-            meeting = meetingsService.findById(meetingForm.getId());
-        }else{
             meeting = new Meeting();
+        }else{
+            meeting = meetingsService.findById(meetingForm.getId());
+        }
+        meeting.setTopic(meetingForm.getTopic());
+        //чтение даты
+        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+        try {
+            Date date = new Date();
+            date = df.parse(meetingForm.getDate());
+            meeting.setDate(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (chosenDeputies.length != 0){
+            Set<Deputy> newDeputies = new HashSet<>();
+            for (String idStr : chosenDeputies) {
+                Integer id = Integer.parseInt(idStr);
+                Deputy deputy = deputyService.findById(id);
+                deputy.getMeetings().add(meeting);
+                newDeputies.add(deputy);
+            }
+            meeting.setDeputies(newDeputies);
         }
         meetingsService.saveMeeting(meeting);
         return "redirect:/meetings";
     }
+
+    @RequestMapping(value = "/view", method = RequestMethod.POST)
+    public String view(@RequestParam("id") Integer id, Model model){
+        MeetingForm meetingForm = new MeetingForm();
+        meetingForm.feed(meetingsService.findById(id),deputyService.listAllDeputies());
+        model.addAttribute("meetingForm", meetingForm);
+        return "views/meetingview";
+    }
+
 
     @RequestMapping(value="/delete", method = RequestMethod.POST)
     public String remove(@RequestParam("id") Integer id){

@@ -22,7 +22,6 @@
     <form class="form-horizontal" th:object="${fractionForm}" action="#" th:action="@{/fractions/fraction}"
           method="post">
         <!--Подзаголовок страницы-->
-        <!--Подзаголовок страницы-->
         <header class="w3-container w3-light-grey form-group" th:if="${edit}">
             <h2><i>Редактирование информации о фракции</i></h2>
             <input type="hidden" th:field="*{id}"/>
@@ -34,29 +33,25 @@
         <div class="col-sm-12">
             <!--Данные фракции-->
             <div class="form-group">
-                <label class="control-label" for="name">Наименование:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="name" pattern="^[А-Яа-яЁё\s]{3,}" th:field="*{name}"
-                           th:required="required"
-                           placeholder="Введите наименование фракции"/>
-                </div>
+                <label class="control-label" for="name"><span class="asterisk">*</span>Наименование:</label>
+                <input type="text" class="form-control" id="name" pattern="^[А-Яа-яЁё\s]{3,}" th:field="*{name}"
+                       th:required="required"
+                       placeholder="Введите наименование фракции"/>
             </div>
 
             <!--Партии, входящие во фракцию-->
             <div class="form-group" th:if="${not #lists.isEmpty(fractionForm.parties)}">
                 <label class="control-label" for="required">Партии:</label>
-                <div class="col-sm-10">
-                    <select id="required" multiple="multiple" name="chosen[]" data-placeholder="Выберите партии...">
-                        <option th:each="party : ${fractionForm.parties}" th:value="${party.key.id}"
-                                th:text="${party.key.name}" th:if="${party.value}"
-                                th:selected="selected">Название партии
-                        </option>
-                        <option th:each="party : ${fractionForm.parties}" th:value="${party.key.id}"
-                                th:text="${party.key.name}"
-                                th:unless="${party.value}">Название партии
-                        </option>
-                    </select>
-                </div>
+                <select id="required" multiple="multiple" name="chosen[]" data-placeholder="Выберите партии...">
+                    <option th:each="party : ${fractionForm.parties}" th:value="${party.key.id}"
+                            th:text="${party.key.name}" th:if="${party.value}"
+                            th:selected="selected">Название партии
+                    </option>
+                    <option th:each="party : ${fractionForm.parties}" th:value="${party.key.id}"
+                            th:text="${party.key.name}"
+                            th:unless="${party.value}">Название партии
+                    </option>
+                </select>
             </div>
 
             <!--Сохранить-->
