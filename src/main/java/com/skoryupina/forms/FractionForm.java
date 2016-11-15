@@ -38,11 +38,19 @@ public class FractionForm {
     public void setParties(@Nullable Set<Party> partiesInFraction, @Nullable Iterable<Party> partiesInWebParliament) {
         if (partiesInFraction == null || partiesInFraction.size()==0) {
             for (Party party : partiesInWebParliament) {
-                parties.put(party, false);
+                if (party.getFraction()==null){
+                    parties.put(party, false);
+                }
             }
         }else {
             for (Party party : partiesInWebParliament) {
-                parties.put(party, partiesInFraction.contains(party));
+                if (partiesInFraction.contains(party)){
+                    parties.put(party, partiesInFraction.contains(party));
+                }else{
+                    if (party.getFraction()==null){
+                        parties.put(party, false);
+                    }
+                }
             }
         }
     }

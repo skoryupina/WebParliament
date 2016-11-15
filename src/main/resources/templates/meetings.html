@@ -17,8 +17,11 @@
 <div class="w3-container">
     <ul class="w3-ul w3-card-4 w3-hoverable list" th:if="${not #lists.isEmpty(meetings)}">
         <li class="w3-padding-16 list-item" th:each="meeting : ${meetings}">
-            <span class="w3-xlarge" th:text="${meeting.topic}"></span>
-            <span class="w3-small" th:text="${meeting.date}"></span>
+            <span class="w3-xlarge" th:text="${meeting.topic}"></span><br/>
+            <span class="w3-small" th:text="${meeting.formatted}"><br/>
+            <span class="w3-small">Число участников: </span>
+            <span class="w3-small" th:text="${#lists.size(meeting.deputies)}"></span>
+            </span>
             <form action="#" th:action="@{/meetings/edit}" method="post">
                 <input type="hidden" name="id" th:value="${meeting.id}" />
                 <input class="w3-btn w3-padding w3-green control" type="submit" value="Редактировать" />

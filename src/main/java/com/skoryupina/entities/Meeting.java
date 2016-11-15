@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
@@ -13,22 +16,23 @@ import java.util.Set;
 @Access(AccessType.FIELD)
 public class Meeting implements Serializable {
 
-    @Id @GeneratedValue (strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
 
     @Temporal(TemporalType.DATE)
-    @Column (name ="date", nullable = true)
+    @Column(name = "date", nullable = true)
     private Date date;
 
-    @Column (name ="topic", nullable = true)
+    @Column(columnDefinition="text", name = "topic", nullable = true)
     private String topic;
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name="deputy_meeting",
-            joinColumns = @JoinColumn(name="meeting_fk"),
-            inverseJoinColumns = @JoinColumn(name="deputy_fk"))
+    @JoinTable(name = "deputy_meeting",
+            joinColumns = @JoinColumn(name = "meeting_fk"),
+            inverseJoinColumns = @JoinColumn(name = "deputy_fk"))
     private Set<Deputy> deputies;
 
     public Meeting() {
@@ -70,6 +74,12 @@ public class Meeting implements Serializable {
     public void setDeputies(Set<Deputy> deputies) {
         this.deputies = deputies;
     }
+
+    public String getFormatted() {
+        String month = DateFormat.getDateInstance(SimpleDateFormat.LONG, new Locale("ru")).format(getDate());
+        return month;
+    }
+
 
     //endregion
 

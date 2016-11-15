@@ -42,7 +42,7 @@
             <!--Партии, входящие во фракцию-->
             <div class="form-group" th:if="${not #lists.isEmpty(fractionForm.parties)}">
                 <label class="control-label" for="required">Партии:</label>
-                <select id="required" multiple="multiple" name="chosen[]" data-placeholder="Выберите партии...">
+                <select required="required" id="required" multiple="multiple" name="chosen[]" data-placeholder="Выберите партии...">
                     <option th:each="party : ${fractionForm.parties}" th:value="${party.key.id}"
                             th:text="${party.key.name}" th:if="${party.value}"
                             th:selected="selected">Название партии

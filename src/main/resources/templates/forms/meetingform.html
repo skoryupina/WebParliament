@@ -35,7 +35,7 @@
         <div class="col-sm-12">
             <div class="form-group">
                 <label class="control-label" for="topic"><span class="asterisk">*</span>Тема заседания:</label>
-                <input type="text" class="form-control" id="topic" pattern="^[А-Яа-яЁё\s]{3,10}" th:field="*{topic}"
+                <input type="text" class="form-control" id="topic" pattern="^[А-Яа-яЁё\s]{3,25}" th:field="*{topic}"
                        th:required="required"
                        placeholder="Введите тему заседания.."/>
             </div>
@@ -49,7 +49,7 @@
             <!--Депутаты, участвующие в заседании-->
             <div class="form-group" th:if="${not #lists.isEmpty(meetingForm.deputies)}">
                 <label class="control-label" for="required">Депутаты:</label>
-                <select id="required" multiple="multiple" name="chosenDeputies[]"
+                <select required="required" id="required" multiple="multiple" name="chosenDeputies[]"
                         data-placeholder="Выберите депутатов...">
                     <option th:each="deputy : ${meetingForm.deputies}" th:value="${deputy.key.id}"
                             th:text="${deputy.key.name} + ' '+ ${deputy.key.surname}" th:if="${deputy.value}"

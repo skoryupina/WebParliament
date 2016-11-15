@@ -14,6 +14,7 @@ public class MeetingForm {
 
     private Integer id;
     private String date;
+    private String formatted;
     private String topic;
     private Set<Deputy> present;
     private Map<Deputy, Boolean> deputies = new HashMap<>();
@@ -55,6 +56,14 @@ public class MeetingForm {
         this.present = present;
     }
 
+    public String getFormatted() {
+        return formatted;
+    }
+
+    public void setFormatted(String formatted) {
+        this.formatted = formatted;
+    }
+
     private void setDeputies(@Nullable Set<Deputy> deputiesInMeeting, @Nullable  Iterable<Deputy> deputiesInWebParliament) {
         if (deputiesInMeeting == null || deputiesInMeeting.size()==0) {
             for (Deputy deputy : deputiesInWebParliament) {
@@ -77,6 +86,7 @@ public class MeetingForm {
             DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
             String meetingDate = df.format(meeting.getDate());
             setDate(meetingDate);
+            setFormatted(meeting.getFormatted());
         }
         setDeputies(meeting.getDeputies(), deputiesInWebParliament);
         setPresent(meeting.getDeputies());

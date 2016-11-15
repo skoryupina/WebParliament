@@ -16,7 +16,7 @@ import java.util.Random;
 import java.util.Set;
 
 @Component
-public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
+public class DataLoader  implements ApplicationListener<ContextRefreshedEvent> {
 
     private DistrictRepository districtRepository;
     private DeputyRepository deputyRepository;
@@ -53,7 +53,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        //создание округов
+/*        //создание округов
         ArrayList<District> districts = createDistricts();
 
         //создание депутатов
@@ -62,7 +62,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         //создание партий
         ArrayList<Party> parties = createParties(deputies);
 
-        createFractions(parties);
+        createFractions(parties);*/
     }
 
     private ArrayList<District> createDistricts() {

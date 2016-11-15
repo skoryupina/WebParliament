@@ -61,6 +61,11 @@ public class FractionController {
             fraction = fractionService.saveFraction(fraction);
         }else{
             fraction = fractionService.findById(fractionForm.getId());
+            Set<Party> parties = fraction.getParties();
+            for (Party party : parties){
+                party.setFraction(null);
+                partyService.saveParty(party);
+            }
             fraction.setName(fractionForm.getName());
         }
         if (chosenParties.length != 0) {

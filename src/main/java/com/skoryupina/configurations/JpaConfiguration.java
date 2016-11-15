@@ -2,7 +2,6 @@ package com.skoryupina.configurations;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import org.eclipse.persistence.config.PersistenceUnitProperties;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -67,7 +66,7 @@ public class JpaConfiguration {
         Map<String, Object> jpaProperties = new HashMap<>();
         jpaProperties.put("eclipselink.weaving", "false");
         jpaProperties.put("eclipselink.logging.parameters", "true");
-        jpaProperties.put(PersistenceUnitProperties.DDL_GENERATION, PersistenceUnitProperties.DROP_AND_CREATE);
+//        jpaProperties.put(PersistenceUnitProperties.DDL_GENERATION, PersistenceUnitProperties.DROP_AND_CREATE);
         return jpaProperties;
     }
 
